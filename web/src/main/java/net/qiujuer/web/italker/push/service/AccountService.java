@@ -15,14 +15,15 @@ public class AccountService {
 
     @GET
     @Path("login")
+    @Produces(MediaType.TEXT_PLAIN)
     public String get() {
-        return "you get login";
+        return "you get the login";
     }
 
     @POST
     @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)//指定发送的数据类型
-    @Consumes(MediaType.APPLICATION_JSON)//指定接收的数据类型
+    @Produces(MediaType.APPLICATION_JSON)//指定响应的数据类型
+    @Consumes(MediaType.APPLICATION_JSON)//指定请求的数据类型
     public User post() {
         User user = new User();
         user.setName("wenjian");

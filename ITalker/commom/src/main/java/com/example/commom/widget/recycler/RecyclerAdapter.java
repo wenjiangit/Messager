@@ -25,7 +25,7 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
      * 创建ViewHolder
      * @param parent
      * @param viewType 约定好viewType即为布局资源id
-     * @return
+     * @return ViewHolder
      */
     @Override
     public ViewHolder<Data> onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,7 +1,5 @@
 package com.douliu.italker;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.commom.app.BaseActivity;

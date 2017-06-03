@@ -1,15 +1,18 @@
 package com.douliu.italker;
 
+import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.commom.app.BaseActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
+
     @BindView(R.id.tv_test)
-    TextView mTestTv;
+    TextView mTvTest;
 
     @Override
     protected int getContentLayoutId() {
@@ -19,6 +22,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initWidget() {
         super.initWidget();
-        mTestTv.setText("hello imooc");
+        mTvTest.setText("hello imooc");
     }
+
+
 }

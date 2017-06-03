@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * Fragment的基类
  * Created by douliu on 2017/6/2.
  */
 

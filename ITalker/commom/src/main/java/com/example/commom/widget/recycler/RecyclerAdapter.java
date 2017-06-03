@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * 封装的RecyclerView的Adapter
  * Created by wenjian on 2017/6/2.
  */
 

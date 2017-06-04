@@ -1,17 +1,20 @@
 package net.qiujuer.web.italker.push.bean.db;
 
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.xml.stream.FactoryConfigurationError;
 import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * Created by douliu on 2017/6/3.
  */
-@Table
+@Table(name = "TB_USER")
 @Entity
 public class User {
 
@@ -56,6 +59,7 @@ public class User {
     @Column
     private String pushId;
 
+    // 插入的时间点
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createAt = LocalDateTime.now();
@@ -69,4 +73,114 @@ public class User {
     @Column
     private LocalDateTime lastReceivedAt = LocalDateTime.now();
 
+    //我关注人的列表
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "originId")
+    //定义加载方式为懒加载
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    private Set<UserFollow> following = new HashSet<>();
+
+    //关注我的人列表
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "targetId")
+    //定义加载方式为懒加载
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    private Set<UserFollow> followers = new HashSet<>();
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public LocalDateTime getLastReceivedAt() {
+        return lastReceivedAt;
+    }
+
+    public void setLastReceivedAt(LocalDateTime lastReceivedAt) {
+        this.lastReceivedAt = lastReceivedAt;
+    }
 }

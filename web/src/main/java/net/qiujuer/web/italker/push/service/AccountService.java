@@ -1,7 +1,5 @@
 package net.qiujuer.web.italker.push.service;
 
-import net.qiujuer.web.italker.push.bean.User;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -20,7 +18,7 @@ public class AccountService {
         return "you get the login";
     }
 
-    @POST
+   /* @POST
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)//指定响应的数据类型
     @Consumes(MediaType.APPLICATION_JSON)//指定请求的数据类型
@@ -29,5 +27,5 @@ public class AccountService {
         user.setName("wenjian");
         user.setSex(1);
         return user;
-    }
+    }*/
 }

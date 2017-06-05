@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.commom.widget.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha_80"
+        />
+
+    <CheckBox
+        tools:visibility="visible"
+        android:enabled="false"
+        android:clickable="false"
+        android:visibility="gone"
+        android:layout_width="@dimen/len_20"
+        android:layout_height="@dimen/len_20"
+        android:button="@drawable/sel_cb_circle"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/len_6"
+        />
+
+</com.example.commom.widget.SquareLayout>

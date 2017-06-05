@@ -91,29 +91,41 @@ public class NavHelper<T> {
      */
     private void notifyTabChanged(Tab<T> newTab, Tab<T> oldTab) {
         if (mListener != null) {
-            mListener.onNavMenuChange(newTab, oldTab);
+            mListener.onNavTabChange(newTab, oldTab);
         }
     }
 
+    /**
+     * 重复点击同一个Tab
+     * @param tab
+     */
     private void doTabReselected(Tab<T> tab) {
         // TODO: 2017/6/4 重复点击同一个tab所做的操作
     }
 
+    /**
+     * 初始化第一个fragment
+     * @param menuId
+     */
     public void init(int menuId) {
         performMenuClick(menuId);
     }
 
 
+    /**
+     * 菜单变化监听回调接口
+     * @param <T>
+     */
     public interface OnNavMenuChangedListener<T> {
-        void onNavMenuChange(Tab<T> newTab,Tab<T> oldTab);
+        void onNavTabChange(Tab<T> newTab, Tab<T> oldTab);
     }
 
     public static class Tab<T> {
 
-        public int menuId;
-        public Class<?> clazz;
-        public T extra;
-        private Fragment fragment;
+        public final int menuId;
+        public final Class<?> clazz;
+        public final T extra;
+        Fragment fragment;
 
         public Tab(int menuId, Class<?> clazz, T extra) {
             this.menuId = menuId;

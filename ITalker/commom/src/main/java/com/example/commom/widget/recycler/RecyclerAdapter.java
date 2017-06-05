@@ -107,6 +107,16 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         return mDataList.size();
     }
 
+    //更新当前holder的数据
+    @Override
+    public void update(Data data, ViewHolder<Data> holder) {
+        int pos = holder.getAdapterPosition();
+        if (pos >= 0) {
+            mDataList.remove(pos);
+            mDataList.add(pos, data);
+            notifyItemChanged(pos);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -225,5 +235,16 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
 
 
     }
+
+    //点击监听器的一个实现类
+    public static abstract class AdapterListenerImpl<Data> implements AdapterListener<Data> {
+
+        @Override
+        public void onItemLongClick(ViewHolder<Data> holder, Data data) {
+
+        }
+    }
+
+
 }
 

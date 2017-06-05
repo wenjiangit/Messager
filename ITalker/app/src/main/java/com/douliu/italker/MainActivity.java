@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -99,7 +100,8 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void onNavMenuChange(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+    public void onNavTabChange(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         mTvTitle.setText(newTab.extra);
     }
 }

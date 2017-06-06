@@ -62,12 +62,9 @@ public class MainActivity extends BaseActivity implements
 
         mNavHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
 
-        mNavHelper.add(R.id.action_home,new NavHelper.Tab<>(R.id.action_home,
-                ActiveFragment.class,R.string.title_home));
-        mNavHelper.add(R.id.action_group,new NavHelper.Tab<>(R.id.action_group,
-                GroupFragment.class,R.string.title_group));
-        mNavHelper.add(R.id.action_contact, new NavHelper.Tab<>(R.id.action_contact,
-                ContactFragment.class, R.string.title_contact));
+        mNavHelper.add(R.id.action_home,new NavHelper.Tab<>(ActiveFragment.class,R.string.title_home));
+        mNavHelper.add(R.id.action_group,new NavHelper.Tab<>(GroupFragment.class,R.string.title_group));
+        mNavHelper.add(R.id.action_contact, new NavHelper.Tab<>(ContactFragment.class, R.string.title_contact));
 
         mNavHelper.init(R.id.action_home);
 
@@ -101,7 +98,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onNavTabChange(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
         mTvTitle.setText(newTab.extra);
     }
 }

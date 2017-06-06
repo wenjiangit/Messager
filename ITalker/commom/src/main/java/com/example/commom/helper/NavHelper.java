@@ -49,11 +49,11 @@ public class NavHelper<T> {
     private void doTabSelect(Tab<T> tab) {
         Tab<T> oldTab = null;
         if (mCurrentTab != null) {
-            if (mCurrentTab.menuId == tab.menuId) {
+            oldTab = mCurrentTab;
+            if (oldTab == tab) {
                 doTabReselected(tab);
                 return;
             }
-            oldTab = mCurrentTab;
         }
         mCurrentTab = tab;
         doTabChanged(mCurrentTab, oldTab);
@@ -76,7 +76,7 @@ public class NavHelper<T> {
             transaction.attach(newTab.fragment);
         } else {
             Fragment fragment = Fragment.instantiate(mContext, newTab.clazz.getName(), null);
-            transaction.add(mContainerId, fragment);
+            transaction.add(mContainerId, fragment,newTab.clazz.getName());
             newTab.fragment = fragment;
         }
         transaction.commit();
@@ -122,13 +122,11 @@ public class NavHelper<T> {
 
     public static class Tab<T> {
 
-        public final int menuId;
         public final Class<?> clazz;
         public final T extra;
         Fragment fragment;
 
-        public Tab(int menuId, Class<?> clazz, T extra) {
-            this.menuId = menuId;
+        public Tab(Class<?> clazz, T extra) {
             this.clazz = clazz;
             this.extra = extra;
         }

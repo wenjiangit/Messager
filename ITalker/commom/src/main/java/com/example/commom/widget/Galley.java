@@ -3,18 +3,28 @@ package com.example.commom.widget;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.commom.R;
 import com.example.commom.widget.recycler.RecyclerAdapter;
 
-import java.util.Date;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,10 +33,12 @@ import java.util.List;
  * Created by douliu on 2017/6/5.
  */
 
-public class Galley extends RecyclerView{
+public class Galley extends RecyclerView {
 
+    private static final String TAG = "Galley";
     private static final int LOADER_ID = 0x0100;
     private static final int MAX_IMAGE_COUNT = 3;
+    private static final int MIN_IMAGE_SIZE = 10 * 1024;
     private Adapter mAdapter;
     private LoaderCallback mLoaderCallback = new LoaderCallback();
     private List<Image> mSelectImages = new LinkedList<>();//适用于频繁地增加和删除操作
@@ -83,7 +95,9 @@ public class Galley extends RecyclerView{
             notifyRefresh = true;
         } else {
             if (mSelectImages.size() >= MAX_IMAGE_COUNT) {
-                // TODO: 2017/6/5 show Toast
+                String str = getContext().getString(R.string.label_gallery_select_max_size);
+                str = String.format(str, MAX_IMAGE_COUNT);
+                Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
                 notifyRefresh = false;
             } else {
                 mSelectImages.add(image);
@@ -123,11 +137,11 @@ public class Galley extends RecyclerView{
         return paths;
     }
 
-    private static class Image{
+    private static class Image {
         int id;
         String path;
         boolean isSelect;
-        Date date;
+        long date;
 
         @Override
         public boolean equals(Object o) {
@@ -143,31 +157,99 @@ public class Galley extends RecyclerView{
         public int hashCode() {
             return path != null ? path.hashCode() : 0;
         }
+
+        @Override
+        public String toString() {
+            return "Image{" +
+                    "id=" + id +
+                    ", path='" + path + '\'' +
+                    ", isSelect=" + isSelect +
+                    ", date=" + date +
+                    '}';
+        }
     }
 
-    public interface OnSelectChangeListener{
+    public interface OnSelectChangeListener {
         void onSelectCountChange(int count);
     }
 
-    private static class LoaderCallback implements LoaderManager.LoaderCallbacks<Cursor>{
+    private class LoaderCallback implements LoaderManager.LoaderCallbacks<Cursor> {
+
+        String[] IMAGE_PROJECTION = new String[]{
+                MediaStore.Images.ImageColumns._ID,//id
+                MediaStore.Images.ImageColumns.DATA,//数据
+                MediaStore.Images.ImageColumns.DATE_ADDED,//添加的日期
+        };
 
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            if (id == LOADER_ID) {
+                return new CursorLoader(getContext(),
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        IMAGE_PROJECTION,
+                        null,
+                        null,
+                        IMAGE_PROJECTION[2] + " DESC" //按添加日期逆序排列
+                );
+            }
             return null;
         }
 
         @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+            if (cursor != null) {
+                List<Image> images = new ArrayList<>();
+                int count = cursor.getCount();
+                if (count > 0) {
+                    cursor.moveToFirst();
+                    int idIndex = cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[0]);
+                    int pathIndex = cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[1]);
+                    int dateIndex = cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[2]);
+                    do {
+                        int id = cursor.getInt(idIndex);
+                        String path = cursor.getString(pathIndex);
+                        long dateTime = cursor.getLong(dateIndex);
+
+                        File file = new File(path);
+                        if (!file.exists() || file.length() < MIN_IMAGE_SIZE) {
+                            //如果图片不存在或太小则丢弃
+                            continue;
+                        }
+
+                        Image image = new Image();
+                        image.path = path;
+                        image.date = dateTime;
+                        image.id = id;
+                        images.add(image);
+                    } while (cursor.moveToNext());
+                    //通知适配器刷新
+                    updateSource(images);
+                }
+            }
 
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-
+            updateSource(null);
         }
     }
 
+    /**
+     * 刷新数据源
+     *
+     * @param images
+     */
+    private void updateSource(List<Image> images) {
+        Log.d(TAG, "updateSource: "+images);
+        mAdapter.replace(images);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 适配器
+     */
     private class Adapter extends RecyclerAdapter<Image> {
 
         @Override
@@ -182,14 +264,33 @@ public class Galley extends RecyclerView{
     }
 
 
-    private static class ViewHolder extends RecyclerAdapter.ViewHolder<Image> {
+    /**
+     * ViewHolder
+     */
+    private class ViewHolder extends RecyclerAdapter.ViewHolder<Image> {
+
+        private final ImageView mImImage;
+        private final View mShader;
+        private final CheckBox mCbSelect;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            mImImage = (ImageView) itemView.findViewById(R.id.im_image);
+            mShader = itemView.findViewById(R.id.shader);
+            mCbSelect = (CheckBox) itemView.findViewById(R.id.cb_select);
         }
 
         @Override
         public void onBind(Image image) {
+            Glide.with(getContext())
+                    .load(image.path)
+                    .apply(RequestOptions.centerCropTransform())
+                    .apply(RequestOptions.placeholderOf(R.color.grey_200))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))//不需要缓存
+                    .into(mImImage);
+            mShader.setVisibility(image.isSelect ? VISIBLE : INVISIBLE);
+            mCbSelect.setChecked(image.isSelect);
+            mCbSelect.setVisibility(VISIBLE);
 
         }
     }

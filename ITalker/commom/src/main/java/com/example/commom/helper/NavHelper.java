@@ -104,15 +104,6 @@ public class NavHelper<T> {
     }
 
     /**
-     * 初始化第一个fragment
-     * @param menuId
-     */
-    public void init(int menuId) {
-        performMenuClick(menuId);
-    }
-
-
-    /**
      * 菜单变化监听回调接口
      * @param <T>
      */

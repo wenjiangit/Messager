@@ -291,7 +291,6 @@ public class Galley extends RecyclerView {
             mShader.setVisibility(image.isSelect ? VISIBLE : INVISIBLE);
             mCbSelect.setChecked(image.isSelect);
             mCbSelect.setVisibility(VISIBLE);
-
         }
     }
 

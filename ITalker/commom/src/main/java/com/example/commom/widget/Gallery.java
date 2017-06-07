@@ -33,7 +33,7 @@ import java.util.List;
  * Created by douliu on 2017/6/5.
  */
 
-public class Galley extends RecyclerView {
+public class Gallery extends RecyclerView {
 
     private static final String TAG = "Galley";
     private static final int LOADER_ID = 0x0100;
@@ -44,17 +44,17 @@ public class Galley extends RecyclerView {
     private List<Image> mSelectImages = new LinkedList<>();//适用于频繁地增加和删除操作
     private OnSelectChangeListener mListener;
 
-    public Galley(Context context) {
+    public Gallery(Context context) {
         super(context);
         init();
     }
 
-    public Galley(Context context, @Nullable AttributeSet attrs) {
+    public Gallery(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public Galley(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public Gallery(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -259,7 +259,7 @@ public class Galley extends RecyclerView {
 
         @Override
         protected ViewHolder<Image> onCreateViewHolder(View root, int viewType) {
-            return new Galley.ViewHolder(root);
+            return new Gallery.ViewHolder(root);
         }
     }
 

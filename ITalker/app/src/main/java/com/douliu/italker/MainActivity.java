@@ -1,12 +1,13 @@
 package com.douliu.italker;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.douliu.italker.activities.AccountActivity;
 import com.douliu.italker.frags.mian.ActiveFragment;
 import com.douliu.italker.frags.mian.ContactFragment;
 import com.douliu.italker.frags.mian.GroupFragment;
@@ -56,7 +58,8 @@ public class MainActivity extends BaseActivity implements
 
     private NavHelper<Integer> mNavHelper;
 
-    private String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+    private String[] permissions = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
@@ -68,8 +71,12 @@ public class MainActivity extends BaseActivity implements
     protected void initWidget() {
         super.initWidget();
 
-        //有些手机必须动态进行申请权限,不然会崩溃
-        ActivityCompat.requestPermissions(this, permissions, 0);
+        int code = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (code != PackageManager.PERMISSION_GRANTED) {
+            //有些手机必须动态进行申请权限,不然会崩溃
+            ActivityCompat.requestPermissions(this, permissions, 0);
+        }
 
         mNavigation.setOnNavigationItemSelectedListener(this);
 
@@ -110,6 +117,7 @@ public class MainActivity extends BaseActivity implements
             case R.id.im_search:
                 break;
             case R.id.btn_action:
+                AccountActivity.show(this);
                 break;
         }
     }

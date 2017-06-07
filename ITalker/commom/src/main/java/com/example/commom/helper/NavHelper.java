@@ -61,8 +61,8 @@ public class NavHelper<T> {
 
     /**
      * 真正处理Fragment的切换
-     * @param newTab
-     * @param oldTab
+     * @param newTab 新的Tab
+     * @param oldTab 旧的Tab
      */
     private void doTabChanged(Tab<T> newTab, Tab<T> oldTab) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -76,7 +76,7 @@ public class NavHelper<T> {
             transaction.attach(newTab.fragment);
         } else {
             Fragment fragment = Fragment.instantiate(mContext, newTab.clazz.getName(), null);
-            transaction.add(mContainerId, fragment,newTab.clazz.getName());
+            transaction.add(mContainerId, fragment);
             newTab.fragment = fragment;
         }
         transaction.commit();
@@ -97,7 +97,7 @@ public class NavHelper<T> {
 
     /**
      * 重复点击同一个Tab
-     * @param tab
+     * @param tab Tab
      */
     private void doTabReselected(Tab<T> tab) {
         // TODO: 2017/6/4 重复点击同一个tab所做的操作

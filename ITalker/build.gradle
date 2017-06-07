@@ -18,6 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -34,6 +35,7 @@ ext{
     geniusVersion = "2.0.0"
     circleVersion = "2.1.0"
     glideVersion = "4.0.0-RC0"
+    ucropVersion = "2.2.1-native"
 
 
 }

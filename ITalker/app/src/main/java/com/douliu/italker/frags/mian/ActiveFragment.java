@@ -23,23 +23,10 @@ public class ActiveFragment extends BaseFragment {
         return R.layout.fragment_active;
     }
 
-<<<<<<< HEAD
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mGalley.clear();
-    }
-
-    @Override
-    protected void initData() {
-        mGalley.setup(getLoaderManager(), new Galley.OnSelectChangeListener() {
-=======
-
     @Override
     protected void initData() {
 
         mGallery.setup(getLoaderManager(), new Gallery.OnSelectChangeListener() {
->>>>>>> fb05aa2190a9daa4ce148fbc020b9bf636db1584
             @Override
             public void onSelectCountChange(int count) {
 

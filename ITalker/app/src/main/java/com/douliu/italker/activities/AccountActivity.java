@@ -9,6 +9,8 @@ import com.example.commom.app.BaseActivity;
 
 public class AccountActivity extends BaseActivity {
 
+    private UpdateInfoFragment mFragment;
+
     /**
      * AccountActivity的入口
      * @param context 上下文
@@ -25,9 +27,18 @@ public class AccountActivity extends BaseActivity {
     @Override
     protected void initWidget() {
         super.initWidget();
+        mFragment = new UpdateInfoFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.lay_container, new UpdateInfoFragment())
+                .add(R.id.lay_container, mFragment)
                 .commit();
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //将onActivityResult分发给mFragment
+        mFragment.onActivityResult(requestCode, resultCode, data);
     }
 }

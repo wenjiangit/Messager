@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.douliu.italker.R;
+import com.example.commom.utils.UiTool;
 import com.example.commom.widget.Gallery;
 
 import net.qiujuer.genius.ui.Ui;
@@ -97,8 +98,8 @@ public class GalleryFragment extends BottomSheetDialogFragment implements Galler
                 return;
             }
 
-            int screenHeight = getContext().getResources().getDisplayMetrics().heightPixels;
-            int statusHeight = (int) Ui.dipToPx(getContext().getResources(), 25);
+            int screenHeight = UiTool.getScreenHeigh(getOwnerActivity());
+            int statusHeight = UiTool.getStatusHeight(getOwnerActivity());
 
             int dialogHeight = screenHeight - statusHeight;
 

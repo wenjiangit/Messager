@@ -30,23 +30,14 @@ public class ActiveFragment extends BaseFragment {
         return R.layout.fragment_active;
     }
 
-   /* @Override
-    protected void initWidget(View rootView) {
-        super.initWidget(rootView);
-        Galley galley = mGalley;
-
-        mGalley.setup(getLoaderManager(), new Galley.OnSelectChangeListener() {
-            @Override
-            public void onSelectCountChange(int count) {
-
-            }
-        });
-    }*/
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mGalley.clear();
+    }
 
     @Override
     protected void initData() {
-        Galley galley = mGalley;
-
         mGalley.setup(getLoaderManager(), new Galley.OnSelectChangeListener() {
             @Override
             public void onSelectCountChange(int count) {

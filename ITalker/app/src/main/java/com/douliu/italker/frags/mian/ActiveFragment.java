@@ -1,25 +1,18 @@
 package com.douliu.italker.frags.mian;
 
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.douliu.italker.R;
 import com.example.commom.app.BaseFragment;
-import com.example.commom.widget.Galley;
+import com.example.commom.widget.Gallery;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 public class ActiveFragment extends BaseFragment {
 
 
-    @BindView(R.id.galley)
-    Galley mGalley;
+    @BindView(R.id.gallery)
+    Gallery mGallery;
 
     public ActiveFragment() {
         // Required empty public constructor
@@ -30,6 +23,7 @@ public class ActiveFragment extends BaseFragment {
         return R.layout.fragment_active;
     }
 
+<<<<<<< HEAD
     @Override
     public void onDetach() {
         super.onDetach();
@@ -39,6 +33,13 @@ public class ActiveFragment extends BaseFragment {
     @Override
     protected void initData() {
         mGalley.setup(getLoaderManager(), new Galley.OnSelectChangeListener() {
+=======
+
+    @Override
+    protected void initData() {
+
+        mGallery.setup(getLoaderManager(), new Gallery.OnSelectChangeListener() {
+>>>>>>> fb05aa2190a9daa4ce148fbc020b9bf636db1584
             @Override
             public void onSelectCountChange(int count) {
 

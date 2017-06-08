@@ -1,13 +1,10 @@
-package com.douliu.italker;
+package com.douliu.italker.activities;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.douliu.italker.activities.AccountActivity;
+import com.douliu.italker.App;
+import com.douliu.italker.R;
 import com.douliu.italker.frags.mian.ActiveFragment;
 import com.douliu.italker.frags.mian.ContactFragment;
 import com.douliu.italker.frags.mian.GroupFragment;
@@ -58,9 +56,9 @@ public class MainActivity extends BaseActivity implements
 
     private NavHelper<Integer> mNavHelper;
 
-    private String[] permissions = new String[]{
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public static void show(Context context) {
+        App.startActivity(context, MainActivity.class);
+    }
 
     @Override
     protected int getContentLayoutId() {
@@ -70,14 +68,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
-
-        int code = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (code != PackageManager.PERMISSION_GRANTED) {
-            //有些手机必须动态进行申请权限,不然会崩溃
-            ActivityCompat.requestPermissions(this, permissions, 0);
-        }
-
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         mNavHelper = new NavHelper<>(this, getSupportFragmentManager(), R.id.lay_container, this);
@@ -97,10 +87,6 @@ public class MainActivity extends BaseActivity implements
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
     @Override
     protected void initData() {

@@ -26,11 +26,11 @@ public class ActiveFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        mGallery.setup(getLoaderManager(), new Gallery.OnSelectChangeListener() {
+      /*  mGallery.setup(getLoaderManager(), new Gallery.OnSelectChangeListener() {
             @Override
             public void onSelectCountChange(int count) {
 
             }
-        });
+        });*/
     }
 }

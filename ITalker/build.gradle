@@ -36,6 +36,8 @@ ext{
     circleVersion = "2.1.0"
     glideVersion = "4.0.0-RC0"
     ucropVersion = "2.2.1-native"
+    easyPMVersion = "0.3.0"
+    ossVersion = '2.3.0'
 
 
 }

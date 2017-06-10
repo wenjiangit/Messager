@@ -24,7 +24,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':commom')
+    compile project(':factory')
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
     compile "com.android.support:design:$rootProject.ext.supportVersion"
@@ -40,6 +40,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
 
     compile "com.github.yalantis:ucrop:$rootProject.ext.ucropVersion"
+    compile "pub.devrel:easypermissions:$rootProject.ext.easyPMVersion"
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'

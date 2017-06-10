@@ -1,6 +1,5 @@
 package com.example.commom.app;
 
-import android.content.Context;
 import android.os.SystemClock;
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class Application extends android.app.Application {
         instance = this;
     }
 
-    public static Context getContext() {
+    public static Application getInstance() {
         return instance;
     }
 

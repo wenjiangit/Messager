@@ -1,8 +1,10 @@
-package net.qiujuer.web.italker.push.bean.api;
+package net.qiujuer.web.italker.push.bean.api.account;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
 
 /**
+ *
  * Created by wenjian on 2017/6/10.
  */
 public class RegisterModel {
@@ -13,6 +15,16 @@ public class RegisterModel {
     private String name;
     @Expose
     private String password;
+    @Expose
+    private String pushId;
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 
     public String getAccount() {
         return account;
@@ -36,5 +48,12 @@ public class RegisterModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static boolean check(RegisterModel model) {
+        return model != null
+                && !Strings.isNullOrEmpty(model.account)
+                && !Strings.isNullOrEmpty(model.password)
+                && !Strings.isNullOrEmpty(model.name);
     }
 }

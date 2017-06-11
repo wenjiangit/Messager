@@ -63,4 +63,63 @@ public class Hib {
             sessionFactory.close();
         }
     }
+
+
+    public interface QueryOnly{
+        void query(Session session);
+    }
+
+    /**
+     * 无返回值的查询
+     * @param query
+     */
+    public static void queryOnly(QueryOnly query) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            query.query(session);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                transaction.rollback();
+            } catch (RuntimeException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            session.close();
+        }
+    }
+
+
+    public interface Query<T>{
+        T query(Session session);
+    }
+
+    /**
+     * 有返回值的查询
+     * @param query
+     * @param <T>
+     * @return
+     */
+    public static<T> T query(Query<T> query) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            T t = query.query(session);
+            transaction.commit();
+            return t;
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                transaction.rollback();
+            } catch (RuntimeException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.stream.FactoryConfigurationError;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "TB_USER")
-public class User {
+public class User implements Principal {
 
     // 主键
     @Id

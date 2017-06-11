@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.douliu.italker.R;
-import com.douliu.italker.frags.account.UpdateInfoFragment;
+import com.douliu.italker.frags.account.AccountTrigger;
+import com.douliu.italker.frags.account.LoginFragment;
+import com.douliu.italker.frags.account.RegisterFragment;
 import com.example.commom.app.BaseActivity;
+import com.example.commom.app.BaseFragment;
 
-public class AccountActivity extends BaseActivity {
+public class AccountActivity extends BaseActivity implements AccountTrigger{
 
-    private UpdateInfoFragment mFragment;
+    private BaseFragment mCurFragment;
+    private BaseFragment mLoginFragment;
+    private BaseFragment mRegisterFragment;
 
     /**
      * AccountActivity的入口
@@ -27,18 +32,29 @@ public class AccountActivity extends BaseActivity {
     @Override
     protected void initWidget() {
         super.initWidget();
-        mFragment = new UpdateInfoFragment();
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.lay_container, mFragment)
+        mCurFragment = mLoginFragment = new LoginFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.lay_container, mCurFragment)
                 .commit();
-
     }
-
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //将onActivityResult分发给mFragment
-        mFragment.onActivityResult(requestCode, resultCode, data);
+    public void triggerView() {
+        BaseFragment fragment;
+        if (mCurFragment == mLoginFragment) {
+            if (mRegisterFragment == null) {
+                mRegisterFragment = new RegisterFragment();
+            }
+            fragment = mRegisterFragment;
+        } else {
+            fragment = mLoginFragment;
+        }
+        mCurFragment = fragment;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.lay_container, mCurFragment)
+                .commit();
     }
+
 }

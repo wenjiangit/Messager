@@ -1,4 +1,4 @@
-package com.douliu.italker.frags.account;
+package com.douliu.italker.frags.user;
 
 
 import android.content.Intent;

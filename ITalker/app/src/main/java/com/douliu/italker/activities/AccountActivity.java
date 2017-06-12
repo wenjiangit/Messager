@@ -2,23 +2,36 @@ package com.douliu.italker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.douliu.italker.R;
 import com.douliu.italker.frags.account.AccountTrigger;
 import com.douliu.italker.frags.account.LoginFragment;
 import com.douliu.italker.frags.account.RegisterFragment;
 import com.example.commom.app.BaseActivity;
-import com.example.commom.app.BaseFragment;
 
-public class AccountActivity extends BaseActivity implements AccountTrigger{
+import butterknife.BindView;
+
+public class AccountActivity extends BaseActivity implements AccountTrigger {
+
+    @BindView(R.id.im_bg)
+    ImageView mImBg;
 
     private Fragment mCurFragment;
     private Fragment mLoginFragment;
     private Fragment mRegisterFragment;
 
+
     /**
      * AccountActivity的入口
+     *
      * @param context 上下文
      */
     public static void show(Context context) {
@@ -38,6 +51,22 @@ public class AccountActivity extends BaseActivity implements AccountTrigger{
                 .beginTransaction()
                 .add(R.id.lay_container, mCurFragment)
                 .commit();
+
+        Glide.with(this)
+                .load(R.drawable.bg_src_tianjin)
+                .apply(RequestOptions.centerCropTransform())
+                .into(new ViewTarget<ImageView,Drawable>(mImBg) {
+                    @Override
+                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+
+                        resource.setColorFilter(getResources().getColor(R.color.colorAccent),
+                                PorterDuff.Mode.SCREEN);
+
+                        this.view.setImageDrawable(resource);
+                    }
+                });
+
+
     }
 
     @Override
@@ -57,5 +86,6 @@ public class AccountActivity extends BaseActivity implements AccountTrigger{
                 .replace(R.id.lay_container, mCurFragment)
                 .commit();
     }
+
 
 }

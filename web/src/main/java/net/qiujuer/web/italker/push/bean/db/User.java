@@ -8,15 +8,18 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.stream.FactoryConfigurationError;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
 /**
+ * User model
+ *
  * Created by douliu on 2017/6/3.
  */
-@Table(name = "TB_USER")
 @Entity
-public class User {
+@Table(name = "TB_USER")
+public class User implements Principal {
 
     // 主键
     @Id
@@ -87,6 +90,12 @@ public class User {
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<UserFollow> followers = new HashSet<>();
 
+    //我创建的群列表
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ownerId")
+    //定义加载方式为懒加载
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    private Set<Group> groups = new HashSet<>();
 
     public String getId() {
         return id;
@@ -182,5 +191,29 @@ public class User {
 
     public void setLastReceivedAt(LocalDateTime lastReceivedAt) {
         this.lastReceivedAt = lastReceivedAt;
+    }
+
+    public Set<UserFollow> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<UserFollow> following) {
+        this.following = following;
+    }
+
+    public Set<UserFollow> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<UserFollow> followers) {
+        this.followers = followers;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

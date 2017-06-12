@@ -1,15 +1,17 @@
 package com.example.factory.helper;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 
-import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.example.commom.utils.HashUtil;
 import com.example.factory.Factory;
+
+import java.util.Date;
 
 /**
  * Created by douliu on 2017/6/8.
@@ -49,14 +51,25 @@ public class UploadHelper {
         }
     }
 
+    public static String getObjKeyString(String path) {
+        return HashUtil.getMD5String(path);
+    }
 
-    public static String getObjKey() {
-        return null;
+    /**
+     * 获取格式化如:201706字符串
+     * @return 字符串
+     */
+    public static String getDateString() {
+        return DateFormat.format("yyyyMM", new Date()).toString();
     }
 
 
     public static String uploadImageObj(String objectKey,String path) {
-        return null;
+        String objKeyString = getObjKeyString(path);
+        String dateString = getDateString();
+        String format = String.format("/image/%s/%s.jpg", dateString, objKeyString);
+
+        return upload(format, path);
     }
 
 

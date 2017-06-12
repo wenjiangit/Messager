@@ -37,7 +37,9 @@ dependencies {
     compile "de.hdodenhof:circleimageview:$rootProject.ext.circleVersion"
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+
     compile "net.qiujuer.genius:kit-handler:$rootProject.ext.geniusVersion"
+    testCompile 'junit:junit:4.12'
 
     testCompile 'junit:junit:4.12'
     compile project(':lang')

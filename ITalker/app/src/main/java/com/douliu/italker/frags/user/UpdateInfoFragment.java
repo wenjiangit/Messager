@@ -1,4 +1,4 @@
-package com.douliu.italker.frags.account;
+package com.douliu.italker.frags.user;
 
 
 import android.content.Intent;
@@ -14,6 +14,8 @@ import com.douliu.italker.R;
 import com.douliu.italker.frags.media.GalleryFragment;
 import com.example.commom.app.BaseFragment;
 import com.example.commom.widget.PortraitImageView;
+import com.example.factory.Factory;
+import com.example.factory.net.UploadHelper;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -91,5 +93,18 @@ public class UpdateInfoFragment extends BaseFragment {
                 .load(resultUri)
                 .apply(RequestOptions.centerCropTransform())
                 .into(mImPortrait);
+
+        final String localPath = resultUri.getPath();
+
+        Log.i(TAG, "localPath: " + localPath);
+
+        Factory.runOnUiAsync(new Runnable() {
+            @Override
+            public void run() {
+                String url = UploadHelper.uploadPortrait(localPath);
+                Log.i(TAG, "服务器地址: " + url);
+            }
+        });
+
     }
 }

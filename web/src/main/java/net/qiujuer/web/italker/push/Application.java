@@ -1,6 +1,7 @@
 package net.qiujuer.web.italker.push;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import net.qiujuer.web.italker.push.provider.AuthRequestFilter;
+import net.qiujuer.web.italker.push.provider.GsonProvider;
 import net.qiujuer.web.italker.push.service.AccountService;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -17,8 +18,11 @@ public class Application extends ResourceConfig {
         //注册日志输出类
         register(Logger.class);
 
+        register(AuthRequestFilter.class);
         //注册json解析类
-        register(JacksonJsonProvider.class);
+//        register(JacksonJsonProvider.class);
+
+        register(GsonProvider.class);
 
 
     }

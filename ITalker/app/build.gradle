@@ -43,12 +43,11 @@ dependencies {
 
     //图片裁剪库
     compile "com.github.yalantis:ucrop:$rootProject.ext.ucropVersion"
+
     //动态权限申请库
     compile "pub.devrel:easypermissions:$rootProject.ext.easyPMVersion"
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
-
-    compile 'com.android.support:support-v4:25.3.1'
 }

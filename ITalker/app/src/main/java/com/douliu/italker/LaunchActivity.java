@@ -22,6 +22,5 @@ public class LaunchActivity extends BaseActivity {
             MainActivity.show(this);
             finish();
         }
-
     }
 }

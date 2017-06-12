@@ -101,9 +101,10 @@ public class MainActivity extends BaseActivity implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_search:
+                AccountActivity.show(this);
                 break;
             case R.id.btn_action:
-                AccountActivity.show(this);
+                UserActivity.show(this);
                 break;
         }
     }

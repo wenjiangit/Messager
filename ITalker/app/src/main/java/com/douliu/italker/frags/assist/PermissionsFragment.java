@@ -192,7 +192,7 @@ public class PermissionsFragment extends BottomSheetDialogFragment
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         App.showToast(R.string.label_permission_ok);
         refreshState(getView());
-        dismiss();
+//        dismiss();
     }
 
     @Override

@@ -1,10 +1,9 @@
 package com.example.commom.app;
 
-<<<<<<< HEAD
+
 import android.content.Context;
 import android.content.Intent;
-=======
->>>>>>> a675bb9b7807148cb4f3deaf75c9a3387513ba24
+
 import android.os.SystemClock;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
@@ -29,14 +28,13 @@ public class Application extends android.app.Application {
         instance = this;
     }
 
-<<<<<<< HEAD
+
     /**
      * 获取Application实例
      *
      * @return this
      */
-=======
->>>>>>> a675bb9b7807148cb4f3deaf75c9a3387513ba24
+
     public static Application getInstance() {
         return instance;
     }

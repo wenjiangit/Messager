@@ -1,13 +1,146 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_src_tianjin"
+    android:orientation="vertical"
     tools:context="com.douliu.italker.frags.account.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/len_40"
+        android:paddingBottom="@dimen/len_20"
+        android:background="@drawable/bg_gradient_black"
+        app:title="@string/label_register_welcome"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="@color/white">
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/len_16"
+        android:layout_marginRight="@dimen/len_16"
+        android:background="@drawable/bg_account_input"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingEnd="@dimen/len_8"
+            android:paddingStart="@dimen/len_8"
+            android:paddingTop="@dimen/len_12">
+
+            <ImageView
+                android:layout_width="@dimen/len_20"
+                android:layout_height="@dimen/len_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/len_8"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_phone"
+                android:tint="@color/colorAccent" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="@string/label_phone"
+                android:inputType="phone"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecond"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textSize="@dimen/font_14" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginEnd="@dimen/len_8"
+            android:layout_marginStart="@dimen/len_40"
+            android:background="@color/black_alpha_32" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingEnd="@dimen/len_8"
+            android:paddingStart="@dimen/len_8"
+            android:paddingTop="@dimen/len_12">
+
+            <ImageView
+                android:layout_width="@dimen/len_20"
+                android:layout_height="@dimen/len_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/len_8"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_key"
+                android:tint="@color/colorAccent" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="@string/label_password"
+                android:inputType="textPassword"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecond"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textSize="@dimen/font_14" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginEnd="@dimen/len_8"
+            android:layout_marginStart="@dimen/len_40"
+            android:background="@color/black_alpha_32" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingEnd="@dimen/len_8"
+            android:paddingStart="@dimen/len_8"
+            android:paddingTop="@dimen/len_12">
+
+            <ImageView
+                android:layout_width="@dimen/len_20"
+                android:layout_height="@dimen/len_20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/len_8"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_person"
+                android:tint="@color/colorAccent" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="@string/label_name"
+                android:inputType="text"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecond"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textSize="@dimen/font_14" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

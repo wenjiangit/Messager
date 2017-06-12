@@ -2,6 +2,7 @@ package com.douliu.italker.frags.user;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -51,13 +52,21 @@ public class UpdateInfoFragment extends BaseFragment {
                 .setListener(new GalleryFragment.OnImageSelectedListener() {
                     @Override
                     public void onImageSelect(String path) {
-                        String portraitPath = App.getPortraitPath();
+                        File portraitTempFile = App.getPortraitTempFile();
+
                         Uri sourceUri = Uri.fromFile(new File(path));
-                        Uri destinationUri = Uri.fromFile(new File(portraitPath));
+                        Uri destinationUri = Uri.fromFile(portraitTempFile);
+
+                        UCrop.Options options = new UCrop.Options();
+                        //设置图片压缩格式
+                        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+                        //设置图片压缩精度
+                        options.setCompressionQuality(96);
 
                         UCrop.of(sourceUri, destinationUri)
-                                .withAspectRatio(1, 1)
-                                .withMaxResultSize(520, 520)
+                                .withAspectRatio(1, 1)//设置比例
+                                .withMaxResultSize(520, 520)//最大宽高
+                                .withOptions(options)//相关配置
                                 .start(getActivity());
 
                     }

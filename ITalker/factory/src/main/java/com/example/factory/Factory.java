@@ -8,9 +8,11 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by wenjian on 2017/6/9.
+
  */
 
 public class Factory {
+
 
     private final Executor executor;
 

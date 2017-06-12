@@ -2,6 +2,7 @@ package com.douliu.italker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 import com.douliu.italker.R;
 import com.douliu.italker.frags.account.AccountTrigger;
@@ -12,9 +13,9 @@ import com.example.commom.app.BaseFragment;
 
 public class AccountActivity extends BaseActivity implements AccountTrigger{
 
-    private BaseFragment mCurFragment;
-    private BaseFragment mLoginFragment;
-    private BaseFragment mRegisterFragment;
+    private Fragment mCurFragment;
+    private Fragment mLoginFragment;
+    private Fragment mRegisterFragment;
 
     /**
      * AccountActivity的入口
@@ -41,7 +42,7 @@ public class AccountActivity extends BaseActivity implements AccountTrigger{
 
     @Override
     public void triggerView() {
-        BaseFragment fragment;
+        Fragment fragment;
         if (mCurFragment == mLoginFragment) {
             if (mRegisterFragment == null) {
                 mRegisterFragment = new RegisterFragment();

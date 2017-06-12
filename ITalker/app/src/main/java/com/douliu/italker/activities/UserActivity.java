@@ -1,7 +1,9 @@
 package com.douliu.italker.activities;
 
+import android.content.Context;
 import android.content.Intent;
 
+import com.douliu.italker.App;
 import com.douliu.italker.R;
 import com.douliu.italker.frags.user.UpdateInfoFragment;
 import com.example.commom.app.BaseActivity;
@@ -34,4 +36,7 @@ public class UserActivity extends BaseActivity {
     }
 
 
+    public static void show(Context context) {
+        App.startActivity(context, UserActivity.class);
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.factory.net;
+package com.example.factory.net.helper;
 
 import android.text.format.DateFormat;
 import android.util.Log;

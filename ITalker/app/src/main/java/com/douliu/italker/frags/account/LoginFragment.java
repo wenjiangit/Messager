@@ -5,12 +5,16 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.douliu.italker.R;
+import com.douliu.italker.frags.assist.PermissionsFragment;
 import com.example.commom.app.BaseFragment;
+import com.example.commom.app.PresenterFragment;
+import com.example.factory.presenter.account.LoginContract;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
+        implements LoginContract.View {
 
     private AccountTrigger mAccountTrigger;
 
@@ -26,6 +30,11 @@ public class LoginFragment extends BaseFragment {
         }
     }
 
+    @Override
+    protected LoginContract.Presenter createPresenter() {
+        return null;
+    }
+
 
     @Override
     protected int getContentLayoutId() {
@@ -36,5 +45,10 @@ public class LoginFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         mAccountTrigger.triggerView();
+    }
+
+    @Override
+    public void loginSuccess() {
+
     }
 }

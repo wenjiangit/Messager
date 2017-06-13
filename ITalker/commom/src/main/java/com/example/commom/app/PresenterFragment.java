@@ -1,9 +1,8 @@
-package com.example.commom.factory.presenter;
+package com.example.commom.app;
 
 import android.content.Context;
 
-import com.example.commom.app.Application;
-import com.example.commom.app.BaseFragment;
+import com.example.commom.factory.presenter.BaseContract;
 
 /**
  *
@@ -18,14 +17,15 @@ public abstract class PresenterFragment<P extends BaseContract.Presenter> extend
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        initPresenter();
+        createPresenter();
     }
 
-    protected abstract P initPresenter();
+    @SuppressWarnings("UnusedReturnValue")
+    protected abstract P createPresenter();
 
     @Override
     public void setPresenter(P presenter) {
-        mPresenter = presenter;
+        this.mPresenter = presenter;
     }
 
     @Override
@@ -38,5 +38,9 @@ public abstract class PresenterFragment<P extends BaseContract.Presenter> extend
         // TODO: 2017/6/12 显示一个loading
     }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mPresenter.destroy();
+    }
 }

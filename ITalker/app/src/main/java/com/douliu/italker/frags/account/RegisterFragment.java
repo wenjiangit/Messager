@@ -2,11 +2,6 @@ package com.douliu.italker.frags.account;
 
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Trace;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,9 +15,7 @@ import net.qiujuer.genius.ui.widget.Button;
 import net.qiujuer.genius.ui.widget.Loading;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * RegisterFragment

@@ -21,7 +21,6 @@ public class Application extends ResourceConfig {
         register(AuthRequestFilter.class);
         //注册json解析类
 //        register(JacksonJsonProvider.class);
-
         register(GsonProvider.class);
 
 

@@ -68,6 +68,8 @@ public class UserFactory {
      * @return
      */
     public static User register(String account, String name, String password) {
+        account = account.trim();
+        password = encodePassword(password.trim());
         User user = createUser(account, name, password);
         Hib.query(session -> session.save(user));
         return login(user);
@@ -149,8 +151,6 @@ public class UserFactory {
 
 
     private static User createUser(String account, String name, String password) {
-        account = account.trim();
-        password = encodePassword(password.trim());
         User user = new User();
         user.setPhone(account);
         user.setName(name.trim());

@@ -1,4 +1,4 @@
-package com.example.factory.net.helper;
+package com.example.factory.net;
 
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -13,6 +13,7 @@ import com.example.factory.Factory;
 import java.util.Date;
 
 /**
+ * 上传到oss对象存储帮助类
  *
  * Created by wenjian on 2017/6/9.
  */

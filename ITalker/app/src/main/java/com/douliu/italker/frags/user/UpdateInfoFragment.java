@@ -15,7 +15,7 @@ import com.douliu.italker.frags.media.GalleryFragment;
 import com.example.commom.app.BaseFragment;
 import com.example.commom.widget.PortraitImageView;
 import com.example.factory.Factory;
-import com.example.factory.net.helper.UploadHelper;
+import com.example.factory.net.UploadHelper;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;

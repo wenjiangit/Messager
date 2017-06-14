@@ -58,10 +58,9 @@ public class AccountActivity extends BaseActivity implements AccountTrigger {
                 .into(new ViewTarget<ImageView,Drawable>(mImBg) {
                     @Override
                     public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-
+                        //设置过滤色
                         resource.setColorFilter(getResources().getColor(R.color.colorAccent),
                                 PorterDuff.Mode.SCREEN);
-
                         this.view.setImageDrawable(resource);
                     }
                 });

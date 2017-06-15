@@ -97,13 +97,15 @@ public class MainActivity extends BaseActivity implements
         menu.performIdentifierAction(R.id.action_home, 0);
     }
 
-    @OnClick({R.id.im_search, R.id.btn_action})
+    @OnClick({R.id.im_search, R.id.btn_action,R.id.im_portrait})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_search:
-                AccountActivity.show(this);
                 break;
             case R.id.btn_action:
+                AccountActivity.show(this);
+                break;
+            case R.id.im_portrait:
                 UserActivity.show(this);
                 break;
         }

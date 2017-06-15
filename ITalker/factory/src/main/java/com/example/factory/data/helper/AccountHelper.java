@@ -5,6 +5,7 @@ import com.example.commom.net.model.RegisterModel;
 import com.example.factory.Factory;
 import com.example.factory.R;
 import com.example.factory.model.api.AccountRspModel;
+import com.example.factory.model.api.LoginModel;
 import com.example.factory.model.api.RspModel;
 import com.example.factory.model.db.User;
 import com.example.factory.net.Network;
@@ -15,6 +16,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 账户帮助类
+ *
  * Created by douliu on 2017/6/13.
  */
 
@@ -27,8 +30,7 @@ public class AccountHelper {
      */
     public static void register(RegisterModel model, final DataSource.Callback<User> callback) {
 
-        RemoteService remoteService = Network.getRetrofit().create(RemoteService.class);
-        Call<RspModel<AccountRspModel>> call = remoteService.accountRegister(model);
+        Call<RspModel<AccountRspModel>> call = Network.remote().accountRegister(model);
         call.enqueue(new Callback<RspModel<AccountRspModel>>() {
             @Override
             public void onResponse(Call<RspModel<AccountRspModel>> call,
@@ -38,7 +40,6 @@ public class AccountHelper {
                     AccountRspModel accountRspModel = rspModel.getResult();
 
                     if (accountRspModel.isBind()) {
-
 
                     } else {
                         bindPush(callback);
@@ -55,6 +56,7 @@ public class AccountHelper {
 
             @Override
             public void onFailure(Call<RspModel<AccountRspModel>> call, Throwable t) {
+                t.printStackTrace();
                 callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
@@ -65,6 +67,37 @@ public class AccountHelper {
      * @param callback
      */
     public static void bindPush(DataSource.Callback<User> callback) {
+
+    }
+
+
+    /**
+     * 登录
+     * @param model
+     * @param callback
+     */
+    public static void login(LoginModel model, final DataSource.Callback<User> callback) {
+        RemoteService service = Network.remote();
+        Call<RspModel<AccountRspModel>> call = service.accountLogin(model);
+        call.enqueue(new Callback<RspModel<AccountRspModel>>() {
+            @Override
+            public void onResponse(Call<RspModel<AccountRspModel>> call,
+                                   Response<RspModel<AccountRspModel>> response) {
+                RspModel<AccountRspModel> rspModel = response.body();
+                if (rspModel.success()) {
+                    AccountRspModel accountRspModel = rspModel.getResult();
+                    callback.onDataLoaded(accountRspModel.getUser());
+                } else {
+                    Factory.decodeRspCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<AccountRspModel>> call, Throwable t) {
+                t.printStackTrace();
+                callback.onDataNotAvailable(R.string.data_network_error);
+            }
+        });
 
     }
 }

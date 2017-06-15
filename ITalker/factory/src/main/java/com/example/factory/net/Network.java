@@ -15,19 +15,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Network {
 
-    private static OkHttpClient sClient;
+    private static Network instance;
+
+    private Retrofit retrofit;
 
     static {
-        sClient = new OkHttpClient.Builder().build();
+        instance = new Network();
     }
 
+    /**
+     * 获取retrofit的实例
+     * @return Retrofit
+     */
     public static Retrofit getRetrofit() {
+        if (instance.retrofit != null) {
+            return instance.retrofit;
+        }
 
-        Retrofit.Builder builder = new Retrofit.Builder();
-        return builder.baseUrl(Common.Constants.API_URL)
-                .client(sClient)
+        OkHttpClient client = new OkHttpClient();
+
+        instance.retrofit = new Retrofit.Builder()
+                .baseUrl(Common.Constants.API_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .build();
+
+        return instance.retrofit;
+    }
+
+
+    public static RemoteService remote() {
+        return getRetrofit().create(RemoteService.class);
     }
 
 

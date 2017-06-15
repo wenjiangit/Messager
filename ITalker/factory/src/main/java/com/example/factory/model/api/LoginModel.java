@@ -12,6 +12,16 @@ public class LoginModel {
 
     private String pushId;
 
+    public LoginModel(String account, String password, String pushId) {
+        this.account = account;
+        this.password = password;
+        this.pushId = pushId;
+    }
+
+    public LoginModel(String account, String password) {
+        this(account, password, null);
+    }
+
     public String getAccount() {
         return account;
     }

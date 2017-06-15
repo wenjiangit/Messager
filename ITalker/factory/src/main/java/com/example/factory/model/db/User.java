@@ -119,4 +119,21 @@ public class User {
     public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", desc='" + desc + '\'' +
+                ", sex=" + sex +
+                ", alias='" + alias + '\'' +
+                ", follows=" + follows +
+                ", following=" + following +
+                ", isFollow=" + isFollow +
+                ", modifyAt=" + modifyAt +
+                '}';
+    }
 }

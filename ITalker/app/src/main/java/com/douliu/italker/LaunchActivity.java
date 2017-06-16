@@ -1,25 +1,30 @@
 package com.douliu.italker;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.util.Property;
 import android.widget.LinearLayout;
 
+import com.douliu.italker.activities.AccountActivity;
 import com.douliu.italker.activities.MainActivity;
 import com.douliu.italker.frags.assist.PermissionsFragment;
 import com.example.commom.app.BaseActivity;
+import com.example.commom.persistant.Account;
 
 import butterknife.BindView;
 
 public class LaunchActivity extends BaseActivity {
 
 
-    private Drawable mBgDrawable;
+    private ColorDrawable mBgDrawable;
 
     @BindView(R.id.activity_launch)
     LinearLayout mBgLayout;
@@ -36,7 +41,7 @@ public class LaunchActivity extends BaseActivity {
 
         mStartColor = ContextCompat.getColor(this, R.color.colorAccent);
 
-        ColorDrawable colorDrawable = new ColorDrawable(color);
+        ColorDrawable colorDrawable = new ColorDrawable(mStartColor);
         mBgLayout.setBackground(colorDrawable);
         mBgDrawable = colorDrawable;
 
@@ -47,21 +52,95 @@ public class LaunchActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-        ArgbEvaluator evaluator = new ArgbEvaluator();
-        float fraction = 0f;
-        int endColor = ContextCompat.getColor(this, R.color.white);
+        startAnim(0.5f, new Runnable() {
+            @Override
+            public void run() {
+                waitPushReceiverId();
+            }
+        });
 
-        Object evaluate = evaluator.evaluate(fraction, mStartColor, endColor);
-
-        ValueAnimator valueAnimator = ObjectAnimator.ofObject(this, , evaluator, mBgDrawable);
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void waitPushReceiverId() {
+        if (Account.isLogin()) {//是否已经登录过
+            if (Account.isBind()) {//是否已经绑定过pushId
+                skip();
+                return;
+            }
+        } else {
+            if (checkPushId()) {
+                skip();
+                return;
+            }
+        }
+        getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                waitPushReceiverId();
+            }
+        }, 500);
+
+    }
+
+    private boolean checkPushId() {
+        return !TextUtils.isEmpty(Account.getPushId());
+    }
+
+    private void startAnim(float fraction, final Runnable callback) {
+        ArgbEvaluator evaluator = new ArgbEvaluator();
+        int endColor = ContextCompat.getColor(this, R.color.white);
+        int evaluate = (int) evaluator.evaluate(fraction, mStartColor, endColor);
+
+        ValueAnimator valueAnimator = ObjectAnimator.ofObject(this,mProperty,evaluator,evaluate);
+
+        valueAnimator.setIntValues(mBgDrawable.getColor(), evaluate);
+        valueAnimator.setDuration(1500);
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                callback.run();
+            }
+        });
+        valueAnimator.start();
+    }
+
+    private final Property<LaunchActivity,Integer> mProperty = new Property<LaunchActivity, Integer>(Integer.class,
+           "color") {
+        @Override
+        public Integer get(LaunchActivity object) {
+            return object.mBgDrawable.getColor();
+        }
+
+        @Override
+        public void set(LaunchActivity object, Integer value) {
+            object.mBgDrawable.setColor(value);
+        }
+    };
+
+    /**
+     * 真正的跳转操作
+     */
+    private void reallySkip() {
         if (PermissionsFragment.hasAllPerm(this, getSupportFragmentManager())) {
-            MainActivity.show(this);
+            if (Account.isLogin()) {
+                MainActivity.show(this);
+            } else {
+                AccountActivity.show(this);
+            }
             finish();
         }
+    }
+
+    /**
+     * 继续没完成的动画
+     */
+    private void skip() {
+        startAnim(1f, new Runnable() {
+            @Override
+            public void run() {
+                reallySkip();
+            }
+        });
     }
 }

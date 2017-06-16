@@ -10,6 +10,12 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                GETUI_APP_ID : "aItu6HBrIB8cvhmrJeRBA3",
+                GETUI_APP_KEY : "jeEqIGB5QC8CFIsx5F4nw3",
+                GETUI_APP_SECRET : "cpxWhT2CQh5bZlr10cdjo6"
+        ]
     }
     buildTypes {
         release {

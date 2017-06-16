@@ -5,6 +5,7 @@ import android.support.annotation.StringRes;
 
 import com.example.commom.app.Application;
 import com.example.commom.factory.data.DataSource;
+import com.example.commom.persistant.Account;
 import com.example.factory.model.api.RspModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,6 +35,10 @@ public class Factory {
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
                 .create();
+    }
+
+    public static void setup() {
+        Account.load(app());
     }
 
     public static Application app() {

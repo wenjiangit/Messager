@@ -32,9 +32,13 @@ public class Account {
         SharedPreferences sp = context.getSharedPreferences(Account.class.getName()
                 ,Context.MODE_PRIVATE);
         sp.edit().putString(KEY_PUSH_ID, pushId)
-                .putBoolean(KEY_IS_LOGIN, isLogin)
                 .apply();
+    }
 
+    public static void load(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Account.class.getName()
+                ,Context.MODE_PRIVATE);
+        pushId = sp.getString(KEY_PUSH_ID, "");
     }
 
 

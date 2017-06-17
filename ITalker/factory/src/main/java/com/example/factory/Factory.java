@@ -128,4 +128,8 @@ public class Factory {
         }
     }
 
+    public static void dispatchMessage(String message) {
+
+    }
+
 }

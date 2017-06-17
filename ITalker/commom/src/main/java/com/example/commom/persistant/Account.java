@@ -3,6 +3,8 @@ package com.example.commom.persistant;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.commom.app.Application;
+
 /**
  * 账户持久化信息
  * Created by douliu on 2017/6/16.
@@ -16,7 +18,7 @@ public class Account {
 
     private static final String KEY_USER_ID = "USER_ID";
 
-    private static String pushId = "test";
+    private static String pushId;
 
     private static boolean isLogin;
 
@@ -64,5 +66,6 @@ public class Account {
 
     public static void setPushId(String pushId) {
         Account.pushId = pushId;
+        save(Application.getInstance());
     }
 }

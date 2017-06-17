@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.commom.persistant.Account;
+import com.example.factory.Factory;
 import com.example.factory.data.helper.AccountHelper;
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
@@ -45,9 +46,14 @@ public class MessageService extends GTIntentService{
 
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage gtCmdMessage) {
-
+        Log.i(TAG, "onReceiveCommandResult: " + gtCmdMessage);
     }
 
+    /**
+     * 保存clientId并绑定到服务器
+     *
+     * @param cid
+     */
     private void onClientInit(String cid) {
         Account.setPushId(cid);
         if (Account.isLogin()) {//如果登录了就进行绑定
@@ -56,7 +62,12 @@ public class MessageService extends GTIntentService{
 
     }
 
+    /**
+     * 交给Factory处理message
+     *
+     * @param message
+     */
     private void onMessageArrived(String message) {
-
+        Factory.dispatchMessage(message);
     }
 }

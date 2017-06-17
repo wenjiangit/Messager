@@ -52,13 +52,15 @@ public class LaunchActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-        startAnim(0.5f, new Runnable() {
+       /* startAnim(0.5f, new Runnable() {
             @Override
             public void run() {
                 waitPushReceiverId();
             }
         });
+*/
 
+       MainActivity.show(this);
     }
 
     private void waitPushReceiverId() {

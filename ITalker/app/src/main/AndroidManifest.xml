@@ -26,17 +26,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name="com.example.factory.receiver.MessageReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="1000"
-            >
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="${GETUI_APP_ID}" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="${GETUI_APP_KEY}" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="${GETUI_APP_SECRET}" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-            </intent-filter>
-
-        </receiver>
         <activity android:name=".LaunchActivity"
             android:theme="@style/AppTheme.TransStatusBar"
             >
@@ -59,6 +58,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".activities.UserActivity" />
+
+        <service
+            android:name=".services.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+
+        <service android:name=".services.MessageService"/>
     </application>
 
 </manifest>

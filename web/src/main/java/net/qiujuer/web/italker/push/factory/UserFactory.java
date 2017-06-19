@@ -1,12 +1,17 @@
 package net.qiujuer.web.italker.push.factory;
 
 import com.google.common.base.Strings;
+import net.qiujuer.web.italker.push.bean.api.account.UserCard;
 import net.qiujuer.web.italker.push.bean.db.User;
+import net.qiujuer.web.italker.push.bean.db.UserFollow;
 import net.qiujuer.web.italker.push.utils.Hib;
 import net.qiujuer.web.italker.push.utils.TextUtil;
+import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -49,6 +54,18 @@ public class UserFactory {
                 .createQuery("from User where token=:token")
                 .setParameter("token", token)
                 .uniqueResult());
+    }
+
+
+    /**
+     * 通过token查找个人信息
+     * @param id 被查找人的id
+     * @return User
+     */
+    public static User findById(String id) {
+        //通过主键查询个人信息
+        return Hib.query(session -> session
+                .get(User.class, id));
     }
 
 
@@ -170,4 +187,86 @@ public class UserFactory {
         return TextUtil.encodeBase64(password);
     }
 
+
+    /**
+     * 获取我关注的人列表
+     * @param self 自己
+     * @return List<User>
+     */
+    public static List<User> contacts(User self) {
+        return Hib.query(session -> {
+            //重新加载一遍我的数据,才能获取懒加载的数据
+            session.load(self, self.getId());
+            Set<UserFollow> follows = self.getFollowing();
+            return follows.stream()
+                    .map(UserFollow::getTarget)
+                    .collect(Collectors.toList());
+        });
+    }
+
+
+    public static User follow(User origin,User target,String alias) {
+        UserFollow userFollow = getUserFollow(origin, target);
+        if (userFollow != null) {
+            return target;
+        }
+
+        return Hib.query(session -> {
+
+            //重新加载,填充懒加载数据
+            session.load(origin, origin.getId());
+            session.load(target, target.getId());
+
+            //向UserFollow表插入两条数据
+            UserFollow originFollow = new UserFollow();
+            originFollow.setOrigin(origin);
+            originFollow.setTarget(target);
+            originFollow.setAlias(alias);
+
+            UserFollow targetFollow = new UserFollow();
+            targetFollow.setOrigin(target);
+            targetFollow.setTarget(origin);
+
+            session.save(originFollow);
+            session.save(targetFollow);
+
+            return target;
+        });
+
+    }
+
+
+    /**
+     * 查询UserFollow信息
+     * @param origin 发起人
+     * @param target 被关注人
+     * @return UserFollow
+     */
+    public static UserFollow getUserFollow(User origin, User target) {
+        return Hib.query(session -> (UserFollow) session.createQuery("from UserFollow " +
+                "where originId=:originId and targetId=:targetId")
+                .setParameter("originId", origin.getId())
+                .setParameter("targetId", target.getId())
+                .uniqueResult());
+    }
+
+
+    /**
+     * 根据名字进行模糊查询
+     * @param name
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static List<User> search(String name) {
+        if (Strings.isNullOrEmpty(name)) {
+            name = "";
+        }
+        String searchName = "%" + name + "%";
+        //模糊查询名字且头像和描述都完善的用户,最多20条
+        return Hib.query(session -> (List<User>) session.createQuery("from User " +
+                "where lower(name) like:name and portrait is not null and description is not null ")
+                .setParameter("name", searchName)
+                .setMaxResults(20)
+                .list());
+    }
 }

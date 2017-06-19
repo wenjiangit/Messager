@@ -1,53 +1,33 @@
-package com.example.factory.model.db;
+package com.example.factory.model.card;
 
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.example.factory.model.db.User;
 
 import java.util.Date;
 
 /**
- *
- * Created by douliu on 2017/6/14.
+ * Created by wenjian on 2017/6/18.
  */
 
-@Table(database = AppDatabase.class)
-public class User extends BaseModel{
-    public static final int SEX_MAN = 1;
-    public static final int SEX_WOMAN = 2;
+public class UserCard {
 
-    @PrimaryKey
     private String id;
-    @Column
+
     private String name;
-    @Column
+
     private String phone;
-    @Column
+
     private String portrait;
-    @Column
+
     private String desc;
-    @Column
+
     private int sex = 0;
 
-    // 我对某人的备注信息，也应该写入到数据库中
-    @Column
-    private String alias;
+    private int followers;//粉丝的个数
 
-    // 用户关注人的数量
-    @Column
-    private int follows;
+    private int followings;//我关注的人个数
 
-    // 用户粉丝的数量
-    @Column
-    private int following;
-
-    // 我与当前User的关系状态，是否已经关注了这个人
-    @Column
     private boolean isFollow;
 
-    // 时间字段
-    @Column
     private Date modifyAt;
 
     public String getId() {
@@ -98,28 +78,20 @@ public class User extends BaseModel{
         this.sex = sex;
     }
 
-    public String getAlias() {
-        return alias;
+    public int getFollowers() {
+        return followers;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setFollowers(int followers) {
+        this.followers = followers;
     }
 
-    public int getFollows() {
-        return follows;
+    public int getFollowings() {
+        return followings;
     }
 
-    public void setFollows(int follows) {
-        this.follows = follows;
-    }
-
-    public int getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(int following) {
-        this.following = following;
+    public void setFollowings(int followings) {
+        this.followings = followings;
     }
 
     public boolean isFollow() {
@@ -138,18 +110,37 @@ public class User extends BaseModel{
         this.modifyAt = modifyAt;
     }
 
+    private User user;
+
+    public User buildUser() {
+        if (user == null) {
+            user = new User();
+            user.setId(id);
+            user.setDesc(desc);
+            user.setFollow(isFollow);
+            user.setFollowing(followings);
+            user.setFollows(followers);
+            user.setModifyAt(modifyAt);
+            user.setName(name);
+            user.setPhone(phone);
+            user.setPortrait(portrait);
+            user.setSex(sex);
+        }
+        return user;
+    }
+
+
     @Override
     public String toString() {
-        return "User{" +
+        return "UserCard{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", portrait='" + portrait + '\'' +
                 ", desc='" + desc + '\'' +
                 ", sex=" + sex +
-                ", alias='" + alias + '\'' +
-                ", follows=" + follows +
-                ", following=" + following +
+                ", followers=" + followers +
+                ", followings=" + followings +
                 ", isFollow=" + isFollow +
                 ", modifyAt=" + modifyAt +
                 '}';

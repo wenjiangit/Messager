@@ -6,8 +6,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Property;
@@ -17,12 +15,11 @@ import com.douliu.italker.activities.AccountActivity;
 import com.douliu.italker.activities.MainActivity;
 import com.douliu.italker.frags.assist.PermissionsFragment;
 import com.example.commom.app.BaseActivity;
-import com.example.commom.persistant.Account;
+import com.example.factory.persistant.Account;
 
 import butterknife.BindView;
 
 public class LaunchActivity extends BaseActivity {
-
 
     private ColorDrawable mBgDrawable;
 
@@ -52,17 +49,18 @@ public class LaunchActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-       /* startAnim(0.5f, new Runnable() {
+        startAnim(0.5f, new Runnable() {
             @Override
             public void run() {
                 waitPushReceiverId();
             }
         });
-*/
 
-       MainActivity.show(this);
     }
 
+    /**
+     * 等待个推框架为我们生成clientId
+     */
     private void waitPushReceiverId() {
         if (Account.isLogin()) {//是否已经登录过
             if (Account.isBind()) {//是否已经绑定过pushId
@@ -84,10 +82,21 @@ public class LaunchActivity extends BaseActivity {
 
     }
 
+
+    /**
+     * 检查PushId
+     *
+     * @return 是否已经有了pushId
+     */
     private boolean checkPushId() {
         return !TextUtils.isEmpty(Account.getPushId());
     }
 
+    /**
+     * 开始动画
+     * @param fraction 动画进度
+     * @param callback 完成时的回调
+     */
     private void startAnim(float fraction, final Runnable callback) {
         ArgbEvaluator evaluator = new ArgbEvaluator();
         int endColor = ContextCompat.getColor(this, R.color.white);
@@ -107,6 +116,9 @@ public class LaunchActivity extends BaseActivity {
         valueAnimator.start();
     }
 
+    /**
+     *  提供对应属性的get and set
+     */
     private final Property<LaunchActivity,Integer> mProperty = new Property<LaunchActivity, Integer>(Integer.class,
            "color") {
         @Override
@@ -121,7 +133,7 @@ public class LaunchActivity extends BaseActivity {
     };
 
     /**
-     * 真正的跳转操作
+     *  真正的跳转操作
      */
     private void reallySkip() {
         if (PermissionsFragment.hasAllPerm(this, getSupportFragmentManager())) {
@@ -135,7 +147,7 @@ public class LaunchActivity extends BaseActivity {
     }
 
     /**
-     * 继续没完成的动画
+     *  继续没完成的动画
      */
     private void skip() {
         startAnim(1f, new Runnable() {

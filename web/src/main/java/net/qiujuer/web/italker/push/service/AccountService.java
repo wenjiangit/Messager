@@ -96,7 +96,7 @@ public class AccountService extends BaseService{
      * 将User和pushId进行绑定
      * @param pushId
      * @param user
-     * @return
+     * @return ResponseModel
      */
     private ResponseModel<AccountRspModel> bind(String pushId, User user) {
         if (user != null) {

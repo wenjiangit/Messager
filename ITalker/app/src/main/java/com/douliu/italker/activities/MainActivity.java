@@ -2,6 +2,7 @@ package com.douliu.italker.activities;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +26,7 @@ import com.douliu.italker.frags.mian.GroupFragment;
 import com.example.commom.app.BaseActivity;
 import com.example.commom.helper.NavHelper;
 import com.example.commom.widget.PortraitImageView;
+import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.widget.FloatActionButton;
@@ -58,6 +60,15 @@ public class MainActivity extends BaseActivity implements
 
     public static void show(Context context) {
         App.startActivity(context, MainActivity.class);
+    }
+
+    @Override
+    protected boolean initArgs(Bundle bundle) {
+        if (Account.isComplete()) {//用户信息是否完善
+            return super.initArgs(bundle);
+        }
+        UserActivity.show(this);
+        return false;
     }
 
     @Override
@@ -97,7 +108,7 @@ public class MainActivity extends BaseActivity implements
         menu.performIdentifierAction(R.id.action_home, 0);
     }
 
-    @OnClick({R.id.im_search, R.id.btn_action,R.id.im_portrait})
+    @OnClick({R.id.im_search, R.id.btn_action, R.id.im_portrait})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_search:
@@ -106,7 +117,7 @@ public class MainActivity extends BaseActivity implements
                 AccountActivity.show(this);
                 break;
             case R.id.im_portrait:
-                UserActivity.show(this);
+//                UserActivity.show(this);
                 break;
         }
     }

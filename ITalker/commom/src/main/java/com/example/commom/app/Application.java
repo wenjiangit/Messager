@@ -15,6 +15,7 @@ import java.io.File;
 
 /**
  * 自定义Application
+ *
  * Created by wenjian on 2017/6/7.
  */
 
@@ -44,6 +45,7 @@ public class Application extends android.app.Application {
      *
      * @return 临时文件
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static File getPortraitTempFile() {
         File cacheDir = instance.getCacheDir();
         File dir = new File(cacheDir.getAbsolutePath(), "Portrait");

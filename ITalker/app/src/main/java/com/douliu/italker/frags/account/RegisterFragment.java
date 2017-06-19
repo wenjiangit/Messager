@@ -69,7 +69,6 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
     @Override
     public void registerSuccess() {
-
         mLoading.stop();
         MainActivity.show(getContext());
         getActivity().finish();

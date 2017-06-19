@@ -9,6 +9,7 @@ import com.example.factory.R;
 import com.example.factory.data.helper.AccountHelper;
 import com.example.factory.model.api.LoginModel;
 import com.example.factory.model.db.User;
+import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
@@ -39,7 +40,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         } else if (phone.length() < 11 || password.length() < 6) {
             getView().showError(R.string.data_account_login_error_validate);
         } else {
-            LoginModel model = new LoginModel(phone, password);
+            LoginModel model = new LoginModel(phone, password, Account.getPushId());
             AccountHelper.login(model, this);
         }
 

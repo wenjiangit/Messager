@@ -5,10 +5,13 @@ import android.support.annotation.StringRes;
 
 import com.example.commom.app.Application;
 import com.example.commom.factory.data.DataSource;
-import com.example.commom.persistant.Account;
 import com.example.factory.model.api.RspModel;
+import com.example.factory.persistant.Account;
+import com.example.factory.utils.DbflowExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -33,12 +36,18 @@ public class Factory {
     private Factory() {
         executor = Executors.newFixedThreadPool(4);
         gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")//将date类型转化成对应的字符串格式
+                .setExclusionStrategies(new DbflowExclusionStrategy())//设置dbflow字段的果过滤器
                 .create();
     }
 
     public static void setup() {
+        //将xml持久化数据读取到缓存
         Account.load(app());
+        //数据库的初始化
+        FlowManager.init(new FlowConfig.Builder(app())
+                .openDatabasesOnInit(true)//在数据库初始化的时候打开
+                .build());
     }
 
     public static Application app() {

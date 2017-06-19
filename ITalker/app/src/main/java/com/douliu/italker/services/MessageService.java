@@ -3,7 +3,7 @@ package com.douliu.italker.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.commom.persistant.Account;
+import com.example.factory.persistant.Account;
 import com.example.factory.Factory;
 import com.example.factory.data.helper.AccountHelper;
 import com.igexin.sdk.GTIntentService;
@@ -57,9 +57,10 @@ public class MessageService extends GTIntentService{
     private void onClientInit(String cid) {
         Account.setPushId(cid);
         if (Account.isLogin()) {//如果登录了就进行绑定
-            AccountHelper.bindPush(null);
+            if (!Account.isBind()) {
+                AccountHelper.bindPush(null);
+            }
         }
-
     }
 
     /**

@@ -1,17 +1,18 @@
 package net.qiujuer.web.italker.push.service;
 
-import com.google.common.base.Strings;
 import net.qiujuer.web.italker.push.bean.api.account.UserCard;
 import net.qiujuer.web.italker.push.bean.api.base.ResponseModel;
 import net.qiujuer.web.italker.push.bean.api.user.UpdateInfoModel;
 import net.qiujuer.web.italker.push.bean.db.User;
 import net.qiujuer.web.italker.push.factory.UserFactory;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
  *
  * Created by wenjian on 2017/6/11.
  */

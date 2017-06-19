@@ -9,6 +9,7 @@ import com.example.commom.net.model.RegisterModel;
 import com.example.factory.R;
 import com.example.factory.data.helper.AccountHelper;
 import com.example.factory.model.db.User;
+import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
@@ -42,11 +43,9 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         } else if (password.length() < 6) {
             view.showError(R.string.data_account_register_invalid_parameter_password);
         } else {
-
-            RegisterModel model = new RegisterModel(phone, name, password);
+            RegisterModel model = new RegisterModel(phone, name, password, Account.getPushId());
             AccountHelper.register(model,this);
         }
-
 
     }
 

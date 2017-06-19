@@ -1,9 +1,17 @@
 package com.example.factory.net;
 
+import android.text.TextUtils;
+
 import com.example.commom.Common;
 import com.example.factory.Factory;
+import com.example.factory.persistant.Account;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -19,6 +27,9 @@ public class Network {
 
     private Retrofit retrofit;
 
+    private Network() {
+    }
+
     static {
         instance = new Network();
     }
@@ -32,7 +43,20 @@ public class Network {
             return instance.retrofit;
         }
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+                        Request.Builder builder = original.newBuilder();
+                        if (!TextUtils.isEmpty(Account.getToken())) {
+                            builder.addHeader("token", Account.getToken());
+                        }
+                        builder.addHeader("Content-Type", "application/json");
+                        Request newRequest = builder.build();
+                        return chain.proceed(newRequest);
+                    }
+                }).build();
 
         instance.retrofit = new Retrofit.Builder()
                 .baseUrl(Common.Constants.API_URL)

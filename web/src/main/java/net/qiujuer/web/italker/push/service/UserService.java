@@ -12,6 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -49,7 +50,7 @@ public class UserService extends BaseService {
         return ResponseModel.buildOk(userCards);
     }
 
-    @GET()
+    @PUT()
     @Path("follow/{followId}")
     @Produces(MediaType.APPLICATION_JSON)//指定响应的数据类型
     @Consumes(MediaType.APPLICATION_JSON)//指定请求的数据类型
@@ -62,7 +63,7 @@ public class UserService extends BaseService {
 
         User followUser = UserFactory.findById(followId);
         if (followUser == null) {//没有找到被关注人的信息
-            return ResponseModel.buildNotFoundUserError(followId);
+            return ResponseModel.buildNotFoundUserError(null);
         }
 
         User user = UserFactory.follow(self, followUser, null);
@@ -107,11 +108,14 @@ public class UserService extends BaseService {
         List<User> searchUsers = UserFactory.search(name);
         User self = getSelf();
         //获取自己关注人的列表
-        List<User> contacts = UserFactory.contacts(self);
+        final List<User> contacts = UserFactory.contacts(self);
         List<UserCard> userCards = searchUsers.stream()
                 .map(user -> {
                     //如果查询的用户在我关注的人
-                    boolean isFollow = contacts.contains(user);
+                    boolean isFollow = user.getId().equalsIgnoreCase(self.getId())||
+                            contacts.stream()
+                                    .anyMatch(contact -> user.getId()
+                                            .equalsIgnoreCase(contact.getId()));
                     return new UserCard(user, isFollow);
                 }).collect(Collectors.toList());
 

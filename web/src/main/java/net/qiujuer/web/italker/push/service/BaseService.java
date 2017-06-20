@@ -18,7 +18,7 @@ public class BaseService {
      * 获取拦截器中传过来的User个人信息
      * @return User
      */
-    protected User getSelf() {
+    User getSelf() {
         return (User) securityContext.getUserPrincipal();
     }
 }

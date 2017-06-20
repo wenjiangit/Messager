@@ -59,7 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:src="@drawable/ic_done"
-                    android:tint="@color/colorAccent" />
+                    android:tint="@color/colorAccent"
+                    android:contentDescription="@string/app_name" />
 
             </FrameLayout>
 
@@ -72,7 +73,7 @@
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_permission_external_write"
+                    android:text="@string/label_permission_write"
                     android:textColor="@color/textPrimary"
                     android:textSize="@dimen/len_16" />
 
@@ -81,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/len_20"
-                    android:text="@string/label_permission_external_desc"
+                    android:text="@string/label_permission_write_desc"
                     android:textColor="@color/textSecond" />
 
                 <ImageView
@@ -90,7 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:src="@drawable/ic_done"
-                    android:tint="@color/colorAccent" />
+                    android:tint="@color/colorAccent"
+                    android:contentDescription="@string/app_name" />
 
             </FrameLayout>
 
@@ -103,7 +105,7 @@
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_permission_storage_read"
+                    android:text="@string/label_permission_read"
                     android:textColor="@color/textPrimary"
                     android:textSize="@dimen/len_16" />
 
@@ -112,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/len_20"
-                    android:text="@string/label_permission_storage_desc"
+                    android:text="@string/label_permission_read_desc"
                     android:textColor="@color/textSecond" />
 
                 <ImageView
@@ -121,7 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:src="@drawable/ic_done"
-                    android:tint="@color/colorAccent" />
+                    android:tint="@color/colorAccent"
+                    android:contentDescription="@string/app_name" />
 
             </FrameLayout>
 
@@ -152,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:src="@drawable/ic_done"
-                    android:tint="@color/colorAccent" />
+                    android:tint="@color/colorAccent"
+                    android:contentDescription="@string/app_name" />
 
             </FrameLayout>
 

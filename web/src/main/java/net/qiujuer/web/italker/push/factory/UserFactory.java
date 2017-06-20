@@ -247,6 +247,7 @@ public class UserFactory {
                 "where originId=:originId and targetId=:targetId")
                 .setParameter("originId", origin.getId())
                 .setParameter("targetId", target.getId())
+                .setMaxResults(1)
                 .uniqueResult());
     }
 

@@ -3,8 +3,10 @@ package com.example.commom.app;
 import android.content.Context;
 
 import com.example.commom.factory.presenter.BaseContract;
+import com.example.commom.widget.invention.PlaceHolderView;
 
 /**
+ * mvp中fragment作为view的基类
  *
  * Created by wenjian on 2017/6/12.
  */
@@ -13,6 +15,7 @@ public abstract class PresenterFragment<P extends BaseContract.Presenter> extend
         implements BaseContract.View<P> {
 
     protected P mPresenter;
+    protected PlaceHolderView mPlaceHolderView;
 
     @Override
     public void onAttach(Context context) {
@@ -30,12 +33,27 @@ public abstract class PresenterFragment<P extends BaseContract.Presenter> extend
 
     @Override
     public void showError(int strId) {
-        Application.showToast(strId);
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerError(strId);
+        } else {
+            Application.showToast(strId);
+        }
+    }
+
+    /**
+     * 设置占位布局视图
+     *
+     * @param placeHolderView 占位视图
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        mPlaceHolderView = placeHolderView;
     }
 
     @Override
     public void showLoading() {
-        // TODO: 2017/6/12 显示一个loading
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerLoading();
+        }
     }
 
     @Override

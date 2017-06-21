@@ -59,6 +59,10 @@ public class NavHelper<T> {
         doTabChanged(mCurrentTab, oldTab);
     }
 
+    public Tab<T> getCurrent() {
+        return mCurrentTab;
+    }
+
     /**
      * 真正处理Fragment的切换
      * @param newTab 新的Tab

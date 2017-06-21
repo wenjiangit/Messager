@@ -112,6 +112,12 @@ public class MainActivity extends BaseActivity implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_search:
+                NavHelper.Tab<Integer> currentTab = mNavHelper.getCurrent();
+                if (Objects.equals(currentTab.extra, R.string.action_group)) {
+                    SearchActivity.show(this, SearchActivity.TYPE_GROUP);
+                } else {
+                    SearchActivity.show(this, SearchActivity.TYPE_USER);
+                }
                 break;
             case R.id.btn_action:
                 AccountActivity.show(this);

@@ -43,8 +43,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 初始化参数
+     *
      * @param bundle
-     * @return 如果参数处理成功返回true,否则返回false
+     * @return 如果参数处理成功返回true, 否则返回false
      */
     protected boolean initArgs(Bundle bundle) {
         return true;
@@ -52,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 获取布局资源id
+     *
      * @return 资源id
      */
     protected abstract int getContentLayoutId();
@@ -69,7 +71,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initData() {
 
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

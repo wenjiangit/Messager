@@ -7,8 +7,11 @@ import com.example.factory.model.api.RspModel;
 import com.example.factory.model.api.UpdateInfoModel;
 import com.example.factory.model.card.UserCard;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -32,6 +35,10 @@ public interface RemoteService {
 
     @PUT("user")
     Call<RspModel<UserCard>> userUpdate(@Body UpdateInfoModel model);
+
+    @GET("user/search/{name}")
+    Call<RspModel<List<UserCard>>> userSearch(@Path(encoded = true,value = "name")String name);
+
 
 
 

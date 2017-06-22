@@ -9,16 +9,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by wenjian on 2017/6/4.
  */
 
-public class PortraitImageView extends CircleImageView{
-    public PortraitImageView(Context context) {
+public class PortraitView extends CircleImageView{
+    public PortraitView(Context context) {
         super(context);
     }
 
-    public PortraitImageView(Context context, AttributeSet attrs) {
+    public PortraitView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PortraitImageView(Context context, AttributeSet attrs, int defStyle) {
+    public PortraitView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 }

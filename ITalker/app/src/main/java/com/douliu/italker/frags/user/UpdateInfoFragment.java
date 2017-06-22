@@ -17,7 +17,7 @@ import com.douliu.italker.R;
 import com.douliu.italker.activities.MainActivity;
 import com.douliu.italker.frags.media.GalleryFragment;
 import com.example.commom.app.PresenterFragment;
-import com.example.commom.widget.PortraitImageView;
+import com.example.commom.widget.PortraitView;
 import com.example.factory.presenter.user.UpdateInfoContract;
 import com.example.factory.presenter.user.UpdateInfoPresenter;
 import com.yalantis.ucrop.UCrop;
@@ -42,7 +42,7 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
     private static final String TAG = "UpdateInfoFragment";
 
     @BindView(R.id.im_portrait)
-    PortraitImageView mImPortrait;
+    PortraitView mImPortrait;
     @BindView(R.id.im_sex)
     ImageView mImSex;
     @BindView(R.id.edit_desc)

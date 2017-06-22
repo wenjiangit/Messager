@@ -3,6 +3,7 @@ package com.douliu.italker.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.douliu.italker.R;
+import com.douliu.italker.frags.search.GroupSearchFragment;
+import com.douliu.italker.frags.search.UserSearchFragment;
 import com.example.commom.app.ToolbarActivity;
 
 /**
@@ -22,6 +25,7 @@ public class SearchActivity extends ToolbarActivity {
     public static final int TYPE_USER = 1;
     public static final int TYPE_GROUP = 2;
     private int mType;
+    private SearchFragment mSearchFragment;
 
     public static void show(Context context,int type) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -38,6 +42,22 @@ public class SearchActivity extends ToolbarActivity {
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_search;
+    }
+
+    @Override
+    protected void initWidget() {
+        super.initWidget();
+        Fragment fragment;
+        if (mType == TYPE_USER) {
+            fragment = new UserSearchFragment();
+        } else {
+            fragment = new GroupSearchFragment();
+        }
+        mSearchFragment = (SearchFragment) fragment;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.lay_container, fragment)
+                .commit();
     }
 
     @Override
@@ -72,7 +92,16 @@ public class SearchActivity extends ToolbarActivity {
     }
 
     private void search(String query) {
+        if (mSearchFragment != null) {
+            mSearchFragment.search(query);
+        }
+    }
 
+    /**
+     * 与fragment进行通信的接口
+     */
+    public interface SearchFragment{
+        void search(String content);
     }
 
 }

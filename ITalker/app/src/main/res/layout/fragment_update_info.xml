@@ -29,7 +29,7 @@
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 
-        <com.example.commom.widget.PortraitImageView
+        <com.example.commom.widget.PortraitView
             android:id="@+id/im_portrait"
             android:layout_width="@dimen/len_92"
             android:layout_height="@dimen/len_92"

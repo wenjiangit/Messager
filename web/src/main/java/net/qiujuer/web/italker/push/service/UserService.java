@@ -101,7 +101,7 @@ public class UserService extends BaseService {
 
 
     @GET()
-    @Path("search/{name}")
+    @Path("search/{name:(.*)?}")
     @Produces(MediaType.APPLICATION_JSON)//指定响应的数据类型
     @Consumes(MediaType.APPLICATION_JSON)//指定请求的数据类型
     public ResponseModel<List<UserCard>> search(@PathParam("name") String name) {

@@ -12,6 +12,8 @@ import com.example.factory.model.db.User;
 import com.example.factory.net.Network;
 import com.example.factory.net.RemoteService;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,4 +52,30 @@ public class UserHelper {
             }
         });
     }
+
+
+    public static void search(String name, final DataSource.Callback<List<UserCard>> callback) {
+        RemoteService service = Network.remote();
+        Call<RspModel<List<UserCard>>> call = service.userSearch(name);
+        call.enqueue(new Callback<RspModel<List<UserCard>>>() {
+            @Override
+            public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
+                RspModel<List<UserCard>> rspModel = response.body();
+                Log.i(TAG, "search onResponse: " + rspModel);
+                if (rspModel.success()) {
+                    List<UserCard> userCards = rspModel.getResult();
+                    callback.onDataLoaded(userCards);
+                } else {
+                    Factory.decodeRspCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
+                t.printStackTrace();
+                callback.onDataNotAvailable(R.string.data_network_error);
+            }
+        });
+    }
+
 }

@@ -25,7 +25,7 @@ import com.douliu.italker.frags.mian.ContactFragment;
 import com.douliu.italker.frags.mian.GroupFragment;
 import com.example.commom.app.BaseActivity;
 import com.example.commom.helper.NavHelper;
-import com.example.commom.widget.PortraitImageView;
+import com.example.commom.widget.PortraitView;
 import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.ui.Ui;
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements
 
 
     @BindView(R.id.im_portrait)
-    PortraitImageView mImPortrait;
+    PortraitView mImPortrait;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     @BindView(R.id.im_search)

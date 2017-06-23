@@ -14,6 +14,7 @@ import com.douliu.italker.activities.SearchActivity;
 import com.example.commom.app.PresenterFragment;
 import com.example.commom.widget.EmptyView;
 import com.example.commom.widget.PortraitView;
+import com.example.commom.widget.recycler.DefaultItemDecoration;
 import com.example.commom.widget.recycler.RecyclerAdapter;
 import com.example.factory.model.card.UserCard;
 import com.example.factory.presenter.search.SearchContract;
@@ -51,6 +52,7 @@ public class UserSearchFragment extends PresenterFragment<SearchContract.Present
         super.initWidget(rootView);
 
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecycler.addItemDecoration(new DefaultItemDecoration(getContext()));
         mRecycler.setAdapter(mAdapter = new RecyclerAdapter<UserCard>() {
             @Override
             protected int getItemViewType(int position, UserCard userCard) {
@@ -62,7 +64,6 @@ public class UserSearchFragment extends PresenterFragment<SearchContract.Present
                 return new UserSearchFragment.ViewHolder(root);
             }
         });
-
         mEmpty.bind(mRecycler);
         setPlaceHolderView(mEmpty);
     }
@@ -94,7 +95,7 @@ public class UserSearchFragment extends PresenterFragment<SearchContract.Present
         @BindView(R.id.im_follow)
         ImageView mImFollow;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -107,7 +108,7 @@ public class UserSearchFragment extends PresenterFragment<SearchContract.Present
                     .into(mPortraitView);
 
             mTvName.setText(userCard.getName());
-            mImFollow.setEnabled(userCard.isFollow());
+            mImFollow.setEnabled(!userCard.isFollow());
 
         }
     }

@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="@dimen/len_16"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/len_16"
-    android:paddingStart="@dimen/len_12"
+    android:background="@color/white"
     android:paddingEnd="@dimen/len_12"
-    android:background="@color/white_alpha_208"
-    android:orientation="horizontal">
+    android:paddingStart="@dimen/len_12"
+    android:paddingTop="@dimen/len_16">
 
     <com.example.commom.widget.PortraitView
         android:id="@+id/im_portrait"
-        android:layout_gravity="start|center_vertical"
         android:layout_width="@dimen/portraitMinSize"
         android:layout_height="@dimen/portraitMinSize"
-        android:src="@drawable/default_portrait"
-        />
+        android:layout_gravity="start|center_vertical"
+        android:src="@drawable/default_portrait" />
 
     <TextView
         android:id="@+id/tv_name"
-        tools:text="@string/app_name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
         android:layout_marginStart="@dimen/len_12"
+        android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="@dimen/fontNameSize"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_weight="1"
         android:textColor="@color/colorAccent"
-        android:layout_gravity="start|center_vertical"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:textSize="@dimen/fontNameSize"
+        tools:text="@string/app_name" />
 
     <ImageView
         android:id="@+id/im_follow"
-        android:tint="@color/white"
-        android:padding="@dimen/len_4"
-        android:src="@drawable/sel_opt_done_add"
-        android:background="@drawable/sel_btn_bg_accent_4"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/len_24"
         android:layout_gravity="end|center_vertical"
         android:layout_marginStart="@dimen/len_12"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/len_24" />
+        android:background="@drawable/sel_btn_bg_accent_4"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/len_4"
+        android:src="@drawable/sel_opt_done_add"
+        android:tint="@color/white" />
 
 </LinearLayout>

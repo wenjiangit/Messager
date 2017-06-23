@@ -6,6 +6,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
 /**
+ * 服务的基类,用于提供自己的信息
  * Created by wenjian on 2017/6/11.
  */
 public class BaseService {

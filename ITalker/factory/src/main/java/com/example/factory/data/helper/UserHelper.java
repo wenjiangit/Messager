@@ -54,7 +54,7 @@ public class UserHelper {
     }
 
 
-    public static void search(String name, final DataSource.Callback<List<UserCard>> callback) {
+    public static Call<RspModel<List<UserCard>>> search(String name, final DataSource.Callback<List<UserCard>> callback) {
         RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userSearch(name);
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
@@ -76,6 +76,7 @@ public class UserHelper {
                 callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
+        return call;
     }
 
 }

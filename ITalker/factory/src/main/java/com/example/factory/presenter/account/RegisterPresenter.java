@@ -81,6 +81,5 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
                 view.showError(strRes);
             }
         });
-
     }
 }

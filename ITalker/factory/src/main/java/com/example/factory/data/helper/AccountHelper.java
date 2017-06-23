@@ -41,8 +41,8 @@ public class AccountHelper {
 
     /**
      * 处理返回结果
-     * @param response
-     * @param callback
+     * @param response Response
+     * @param callback 回调
      */
     private static void processResponse(Response<RspModel<AccountRspModel>> response, DataSource.Callback<User> callback) {
         RspModel<AccountRspModel> rspModel = response.body();
@@ -62,15 +62,15 @@ public class AccountHelper {
             } else {
                 bindPush(callback);
             }
-
         } else {
+            //统一处理错误信息
             Factory.decodeRspCode(rspModel, callback);
         }
     }
 
     /**
      * 进行pushId的绑定
-     * @param callback
+     * @param callback 回调
      */
     public static void bindPush(DataSource.Callback<User> callback) {
         String pushId = Account.getPushId();
@@ -84,8 +84,8 @@ public class AccountHelper {
 
     /**
      * 登录
-     * @param model
-     * @param callback
+     * @param model 登录的model
+     * @param callback 回调
      */
     public static void login(LoginModel model, final DataSource.Callback<User> callback) {
         RemoteService service = Network.remote();

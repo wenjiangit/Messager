@@ -21,6 +21,9 @@ public abstract class BaseFragment extends Fragment {
     protected View mRootView;
     protected Unbinder mUnbinder;
 
+    //标识是否是第一次初始化数据
+    private boolean mIsFirstInitData = true;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -54,8 +57,20 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (mIsFirstInitData) {
+            mIsFirstInitData = false;
+            onFirstInit();
+        }
+
         //当布局初始化完成后开始初始化数据
         initData();
+    }
+
+    /**
+     * 当第一次加载数据时触发
+     */
+    protected void onFirstInit() {
+
     }
 
     /**

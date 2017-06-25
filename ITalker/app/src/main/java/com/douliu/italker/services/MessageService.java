@@ -52,7 +52,7 @@ public class MessageService extends GTIntentService{
     /**
      * 保存clientId并绑定到服务器
      *
-     * @param cid
+     * @param cid clientId
      */
     private void onClientInit(String cid) {
         Account.setPushId(cid);
@@ -66,7 +66,7 @@ public class MessageService extends GTIntentService{
     /**
      * 交给Factory处理message
      *
-     * @param message
+     * @param message 收到的推送消息
      */
     private void onMessageArrived(String message) {
         Factory.dispatchMessage(message);

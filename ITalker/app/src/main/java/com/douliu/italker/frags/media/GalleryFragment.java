@@ -18,8 +18,6 @@ import com.douliu.italker.R;
 import com.example.commom.utils.UiTool;
 import com.example.commom.widget.Gallery;
 
-import net.qiujuer.genius.ui.Ui;
-
 /**
  * A simple {@link Fragment} subclass.
  */

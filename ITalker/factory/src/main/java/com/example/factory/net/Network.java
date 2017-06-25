@@ -38,7 +38,7 @@ public class Network {
      * 获取retrofit的实例
      * @return Retrofit
      */
-    public static Retrofit getRetrofit() {
+    private static Retrofit getRetrofit() {
         if (instance.retrofit != null) {
             return instance.retrofit;
         }

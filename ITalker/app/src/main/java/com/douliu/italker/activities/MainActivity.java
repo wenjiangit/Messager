@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.douliu.italker.frags.mian.GroupFragment;
 import com.example.commom.app.BaseActivity;
 import com.example.commom.helper.NavHelper;
 import com.example.commom.widget.PortraitView;
-import com.example.factory.model.db.User;
 import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.ui.Ui;
@@ -97,14 +95,7 @@ public class MainActivity extends BaseActivity implements
                     }
                 });
 
-        User self = Account.getUser();
-        if (!TextUtils.isEmpty(self.getPortrait())) {
-            Glide.with(this)
-                    .load(self.getPortrait())
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(mImPortrait);
-        }
-
+        mImPortrait.setup(Glide.with(this),Account.getUser());
     }
 
 
@@ -132,7 +123,7 @@ public class MainActivity extends BaseActivity implements
                 AccountActivity.show(this);
                 break;
             case R.id.im_portrait:
-//                UserActivity.show(this);
+                PersonalActivity.show(this,Account.getUserId());
                 break;
         }
     }

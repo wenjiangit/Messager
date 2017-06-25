@@ -7,9 +7,11 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.example.commom.app.Application;
 import com.example.commom.utils.HashUtil;
 import com.example.factory.Factory;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -134,5 +136,25 @@ public class UploadHelper {
     private static String getDateString() {
         return DateFormat.format("yyyyMM", new Date()).toString();
     }
+
+    /**
+     * 获取语音本地存储路径
+     * @param isTemp 是否是临时的
+     * @return
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static String getAudioPath(boolean isTemp) {
+        File dir = new File(Application.getInstance().getCacheDir(), "audio");
+        dir.mkdir();
+        File[] files = dir.listFiles();
+        if (files != null && files.length > 0) {
+            for (File file : files) {
+                file.delete();
+            }
+        }
+        File audioFile = new File(dir, isTemp ? "temp.mp3" : System.currentTimeMillis() + ".mp3");
+        return audioFile.getAbsolutePath();
+    }
+
 
 }

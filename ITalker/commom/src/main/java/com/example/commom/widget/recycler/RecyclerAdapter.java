@@ -107,6 +107,14 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         return mDataList.size();
     }
 
+    /**
+     * 获取所有数据
+     * @return List<Data>
+     */
+    public List<Data> getItems() {
+        return mDataList;
+    }
+
     //更新当前holder的数据
     @Override
     public void update(Data data, ViewHolder<Data> holder) {
@@ -198,10 +206,21 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
      * @param dataList
      */
     public void replace(Collection<Data> dataList) {
+        this.replace(dataList, true);
+    }
+
+    /**
+     * 替换所有的数据,是否需要全局刷新
+     * @param dataList 新的数据
+     * @param isFullRefresh 是否需要全局刷新
+     */
+    public void replace(Collection<Data> dataList,boolean isFullRefresh) {
         mDataList.clear();
         if (dataList != null && dataList.size() > 0) {
             mDataList.addAll(dataList);
-            notifyDataSetChanged();
+            if (isFullRefresh) {
+                notifyDataSetChanged();
+            }
         }
     }
 
@@ -218,6 +237,7 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
 
         public ViewHolder(View itemView) {
             super(itemView);
+            unbinder = ButterKnife.bind(this, itemView);
         }
 
         void bind(Data data) {

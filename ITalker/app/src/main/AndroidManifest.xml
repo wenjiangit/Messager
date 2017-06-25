@@ -48,8 +48,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main">
-        </activity>
+            android:theme="@style/AppTheme.Main" />
         <activity
             android:name=".activities.AccountActivity"
             android:screenOrientation="portrait"
@@ -67,17 +66,24 @@
             android:name=".services.PushService"
             android:exported="true"
             android:label="PushService"
-            android:process=":pushservice">
-        </service>
+            android:process=":pushservice" />
         <service android:name=".services.MessageService" />
 
-        <activity android:name=".activities.SearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.TransStatusBar"
+        <activity
+            android:name=".activities.SearchActivity"
             android:label="@string/title_search"
-            >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransStatusBar" />
+        <activity
+            android:name=".activities.MessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransStatusBar" />
+        <activity
+            android:name=".activities.PersonalActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/action_person"
+            android:theme="@style/AppTheme.TransStatusBar" />
 
-        </activity>
     </application>
 
 </manifest>

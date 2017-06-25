@@ -39,6 +39,15 @@ public interface RemoteService {
     @GET("user/search/{name}")
     Call<RspModel<List<UserCard>>> userSearch(@Path(encoded = true,value = "name")String name);
 
+    @PUT("user/follow/{userId}")
+    Call<RspModel<UserCard>> userFollow(@Path("userId")String userId);
+
+    @GET("user/contact")
+    Call<RspModel<List<UserCard>>> userContact();
+
+    @GET("user/{userId}")
+    Call<RspModel<UserCard>> userFind(@Path("userId")String userId);
+
 
 
 

@@ -10,6 +10,7 @@ import com.example.commom.app.PresenterFragment;
 import com.example.factory.presenter.account.LoginContract;
 import com.example.factory.presenter.account.LoginPresenter;
 
+import net.qiujuer.genius.ui.widget.Button;
 import net.qiujuer.genius.ui.widget.Loading;
 
 import butterknife.BindView;
@@ -27,6 +28,10 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
     EditText mEditPassword;
     @BindView(R.id.loading)
     Loading mLoading;
+    @BindView(R.id.btn_submit)
+    Button mBtnSubmit;
+
+
     private AccountTrigger mAccountTrigger;
 
     public LoginFragment() {
@@ -57,6 +62,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
         String phone = mEditPhone.getText().toString();
         String password = mEditPassword.getText().toString();
         mPresenter.login(phone, password);
+        setWidgetEnable(false);
     }
 
     @OnClick(R.id.tv_register)
@@ -73,5 +79,22 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
     @Override
     public void showLoading() {
         mLoading.start();
+    }
+
+    @Override
+    public void showError(int strId) {
+        super.showError(strId);
+        mLoading.stop();
+        setWidgetEnable(true);
+    }
+
+    /**
+     * 设置控件状态
+     * @param enable 可否进行操作
+     */
+    private void setWidgetEnable(boolean enable) {
+        mEditPassword.setEnabled(enable);
+        mEditPhone.setEnabled(enable);
+        mBtnSubmit.setEnabled(enable);
     }
 }

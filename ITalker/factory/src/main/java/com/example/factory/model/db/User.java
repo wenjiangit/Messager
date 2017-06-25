@@ -1,11 +1,14 @@
 package com.example.factory.model.db;
 
+import com.example.commom.factory.model.Author;
+import com.example.factory.utils.UiDiffCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -13,7 +16,7 @@ import java.util.Date;
  */
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel{
+public class User extends BaseModel implements Author,UiDiffCallback.UiDataDiff<User>{
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
 
@@ -153,5 +156,20 @@ public class User extends BaseModel{
                 ", isFollow=" + isFollow +
                 ", modifyAt=" + modifyAt +
                 '}';
+    }
+
+    @Override
+    public boolean isSame(User user) {
+        return user ==this|| Objects.equals(id,user.id);
+    }
+
+    @Override
+    public boolean isUiContentSame(User user) {
+        return user == this||(
+                Objects.equals(id,user.id))
+                && (Objects.equals(name,user.name)
+                && (Objects.equals(portrait,user.portrait))
+                && (Objects.equals(desc,user.desc))
+                && (Objects.equals(sex,user.sex)));
     }
 }

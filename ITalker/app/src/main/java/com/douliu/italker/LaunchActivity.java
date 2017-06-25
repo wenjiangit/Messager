@@ -97,6 +97,7 @@ public class LaunchActivity extends BaseActivity {
      * @param fraction 动画进度
      * @param callback 完成时的回调
      */
+    @SuppressWarnings("unchecked")
     private void startAnim(float fraction, final Runnable callback) {
         ArgbEvaluator evaluator = new ArgbEvaluator();
         int endColor = ContextCompat.getColor(this, R.color.white);

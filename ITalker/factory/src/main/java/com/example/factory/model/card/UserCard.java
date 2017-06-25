@@ -1,14 +1,16 @@
 package com.example.factory.model.card;
 
+import com.example.commom.factory.model.Author;
 import com.example.factory.model.db.User;
 
 import java.util.Date;
 
 /**
+ * 用户卡片
  * Created by wenjian on 2017/6/18.
  */
 
-public class UserCard {
+public class UserCard implements Author{
 
     private String id;
 

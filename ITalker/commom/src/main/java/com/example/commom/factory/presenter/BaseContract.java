@@ -2,6 +2,8 @@ package com.example.commom.factory.presenter;
 
 import android.support.annotation.StringRes;
 
+import com.example.commom.widget.recycler.RecyclerAdapter;
+
 /**
  * mvp模式中契约基类
  *
@@ -26,4 +28,14 @@ public interface BaseContract {
 
         void destroy();
     }
+
+
+    interface RecyclerView<T extends Presenter,ViewModel> extends View<T> {
+
+        RecyclerAdapter<ViewModel> getRecyclerAdapter();
+
+        void onAdapterDataChanged();
+
+    }
 }
+

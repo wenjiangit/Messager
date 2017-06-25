@@ -27,11 +27,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (initArgs(getIntent().getExtras())) {
             setContentView(getContentLayoutId());
+            initBefore();
             initWidget();
             initData();
         } else {
             finish();
         }
+    }
+
+    protected void initBefore() {
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.example.factory.presenter.follow;
+package com.example.factory.presenter.contact;
 
 import com.example.commom.factory.presenter.BaseContract;
 import com.example.factory.model.card.UserCard;

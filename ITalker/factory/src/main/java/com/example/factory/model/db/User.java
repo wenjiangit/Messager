@@ -1,7 +1,7 @@
 package com.example.factory.model.db;
 
 import com.example.commom.factory.model.Author;
-import com.example.factory.utils.UiDiffCallback;
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements Author,UiDiffCallback.UiDataDiff<User>{
+public class User extends BaseModel implements Author,DiffUiDataCallback.UiDataDiffer<User> {
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
 

@@ -1,4 +1,4 @@
-package com.example.factory.presenter.user;
+package com.example.factory.presenter.search;
 
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
@@ -11,7 +11,7 @@ import com.example.factory.model.db.AppDatabase;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
 import com.example.factory.persistant.Account;
-import com.example.factory.utils.UiDiffCallback;
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -100,7 +100,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
      * @param newList 新的集合
      */
     private void diff(List<User> oldList,List<User> newList) {
-        UiDiffCallback<User> callback = new UiDiffCallback<>(oldList, newList);
+        DiffUiDataCallback<User> callback = new DiffUiDataCallback<>(oldList, newList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callback);
         diffResult.dispatchUpdatesTo(getView().getRecyclerAdapter());
     }

@@ -114,7 +114,7 @@ public class UserHelper {
     }
 
     //刷新联系人列表
-    public static Call<RspModel<List<UserCard>>> refreshContacts(final DataSource.Callback<List<UserCard>> callback) {
+    public static void refreshContacts(final DataSource.Callback<List<UserCard>> callback) {
         RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userContact();
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
@@ -136,7 +136,6 @@ public class UserHelper {
                 callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
-        return call;
     }
 
     private static User findFromLocal(String userId) {
@@ -146,6 +145,11 @@ public class UserHelper {
                 .querySingle();
     }
 
+    /**
+     * 优先从本地拉取个人数据
+     * @param userId 用户id
+     * @return User
+     */
     public static User searchFirstLocal(String userId) {
         User user = findFromLocal(userId);
         if (user == null) {
@@ -166,6 +170,11 @@ public class UserHelper {
         return null;
     }
 
+    /**
+     * 优先从网络拉取个人数据
+     * @param userId 用户id
+     * @return User
+     */
     public static User searchFirstNet(String userId) {
         User user = findFromNet(userId);
         if (user == null) {

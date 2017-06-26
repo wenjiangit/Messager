@@ -17,6 +17,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
+ *
  * Created by wenjian on 2017/6/9.
  */
 
@@ -37,7 +38,7 @@ public class Factory {
         executor = Executors.newFixedThreadPool(4);
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")//将date类型转化成对应的字符串格式
-                .setExclusionStrategies(new DbflowExclusionStrategy())//设置dbflow字段的果过滤器
+                .setExclusionStrategies(new DbflowExclusionStrategy())//设置dbflow字段的过滤器
                 .create();
     }
 

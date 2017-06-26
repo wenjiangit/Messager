@@ -1,4 +1,4 @@
-package com.example.factory.presenter.user;
+package com.example.factory.presenter.search;
 
 import com.example.commom.factory.presenter.BaseContract;
 import com.example.factory.model.db.User;

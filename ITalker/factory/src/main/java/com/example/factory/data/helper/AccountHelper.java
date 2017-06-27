@@ -51,7 +51,7 @@ public class AccountHelper {
             AccountRspModel accountRspModel = rspModel.getResult();
             User user = accountRspModel.getUser();
             //数据库保存
-            user.save();
+            DbHelper.save(User.class, user);
             //自己信息做一个xml持久化
             Account.login(accountRspModel);
             if (accountRspModel.isBind()) {

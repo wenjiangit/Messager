@@ -3,6 +3,7 @@ package com.example.factory.data.helper;
 import android.util.Log;
 
 import com.example.commom.factory.data.DataSource;
+import com.example.commom.utils.CollectionUtil;
 import com.example.factory.Factory;
 import com.example.factory.R;
 import com.example.factory.model.api.RspModel;
@@ -40,8 +41,8 @@ public class UserHelper {
                 Log.i(TAG, "update onResponse: " + rspModel);
                 if (rspModel.success()) {
                     UserCard userCard = rspModel.getResult();
-                    User user = userCard.buildUser();
-                    user.save();
+                    //将数据分发给UserCenter进行处理
+                    Factory.getUserCenter().dispatch(userCard);
                     callback.onDataLoaded(userCard);
                 } else {
                     Factory.decodeRspCode(rspModel, callback);
@@ -94,9 +95,8 @@ public class UserHelper {
                 Log.i(TAG, "follow onResponse: " + rspModel);
                 if (rspModel.success()) {
                     UserCard userCard = rspModel.getResult();
-                    User user = userCard.buildUser();
-                    user.save();
-
+                    //将数据分发给UserCenter进行处理
+                    Factory.getUserCenter().dispatch(userCard);
                     // TODO: 2017/6/23 通知联系人列表更新
                     callback.onDataLoaded(userCard);
 
@@ -114,7 +114,7 @@ public class UserHelper {
     }
 
     //刷新联系人列表
-    public static void refreshContacts(final DataSource.Callback<List<UserCard>> callback) {
+    public static void refreshContacts() {
         RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userContact();
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
@@ -124,16 +124,16 @@ public class UserHelper {
                 Log.i(TAG, "refreshContacts onResponse: " + rspModel);
                 if (rspModel.success()) {
                     List<UserCard> userCards = rspModel.getResult();
-                    callback.onDataLoaded(userCards);
+                    Factory.getUserCenter().dispatch(CollectionUtil.toArray(userCards,UserCard.class));
+
                 } else {
-                    Factory.decodeRspCode(rspModel, callback);
+                    Factory.decodeRspCode(rspModel, null);
                 }
             }
 
             @Override
             public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
                 t.printStackTrace();
-                callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
     }
@@ -163,7 +163,9 @@ public class UserHelper {
             Call<RspModel<UserCard>> call = Network.remote().userFind(userId);
             Response<RspModel<UserCard>> response = call.execute();
             UserCard userCard = response.body().getResult();
-            return userCard.buildUser();
+            User user = userCard.buildUser();
+            Factory.getUserCenter().dispatch(userCard);
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
         }

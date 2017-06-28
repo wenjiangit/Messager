@@ -1,13 +1,13 @@
 package com.example.factory.model.db;
 
+import com.example.factory.persistant.Account;
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import net.qiujuer.italker.factory.persistence.Account;
-import net.qiujuer.italker.factory.utils.DiffUiDataCallback;
 
 import java.io.Serializable;
 import java.util.Date;

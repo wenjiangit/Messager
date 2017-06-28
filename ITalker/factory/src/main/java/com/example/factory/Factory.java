@@ -5,6 +5,8 @@ import android.support.annotation.StringRes;
 
 import com.example.commom.app.Application;
 import com.example.commom.factory.data.DataSource;
+import com.example.factory.data.group.GroupCenter;
+import com.example.factory.data.group.GroupDispatcher;
 import com.example.factory.data.message.MessageCenter;
 import com.example.factory.data.message.MessageDispatcher;
 import com.example.factory.data.user.UserCenter;
@@ -135,6 +137,11 @@ public class Factory {
 
     }
 
+    /**
+     * 处理错误码
+     * @param resId 资源id
+     * @param callback 回调
+     */
     private static void decodeRspCode(@StringRes final int resId, final DataSource.FailedCallback callback) {
         if (callback != null) {
             callback.onDataNotAvailable(resId);
@@ -160,5 +167,15 @@ public class Factory {
     public static MessageCenter getMessageCenter() {
         return MessageDispatcher.instance();
     }
+
+     /**
+     * 获取群组调度中心
+     * @return MessageDispatcher
+     */
+    public static GroupCenter getGroupCenter() {
+        return GroupDispatcher.instance();
+    }
+
+
 
 }

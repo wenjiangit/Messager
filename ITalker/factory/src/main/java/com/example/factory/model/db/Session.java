@@ -1,12 +1,12 @@
 package com.example.factory.model.db;
 
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import net.qiujuer.italker.factory.utils.DiffUiDataCallback;
 
 import java.util.Date;
 import java.util.Objects;
@@ -183,6 +183,10 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
             identify.id = message.getGroup().getId();
         }
         return identify;
+    }
+
+    public void updateToNow() {
+
     }
 
 

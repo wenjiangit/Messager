@@ -150,7 +150,7 @@ public class UserHelper {
      * @param userId 用户id
      * @return User
      */
-    public static User searchFirstLocal(String userId) {
+    public static User search(String userId) {
         User user = findFromLocal(userId);
         if (user == null) {
             user = findFromNet(userId);

@@ -2,6 +2,7 @@ package com.example.factory.presenter.search;
 
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
+import android.view.LayoutInflater;
 
 import com.example.commom.factory.data.DataSource;
 import com.example.commom.factory.presenter.BasePresenter;
@@ -62,6 +63,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
                     }
                 })
                 .execute();
+
 
         //网络请求
         UserHelper.refreshContacts(/*new DataSource.Callback<List<UserCard>>() {

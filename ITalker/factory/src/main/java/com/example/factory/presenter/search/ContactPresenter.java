@@ -1,17 +1,21 @@
-package com.example.factory.presenter.user;
+package com.example.factory.presenter.search;
 
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
+import android.view.LayoutInflater;
 
 import com.example.commom.factory.data.DataSource;
 import com.example.commom.factory.presenter.BasePresenter;
+import com.example.commom.utils.CollectionUtil;
+import com.example.commom.utils.StreamUtil;
+import com.example.factory.data.helper.DbHelper;
 import com.example.factory.data.helper.UserHelper;
 import com.example.factory.model.card.UserCard;
 import com.example.factory.model.db.AppDatabase;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
 import com.example.factory.persistant.Account;
-import com.example.factory.utils.UiDiffCallback;
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -20,6 +24,8 @@ import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,8 +64,9 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
                 })
                 .execute();
 
+
         //网络请求
-        UserHelper.refreshContacts(new DataSource.Callback<List<UserCard>>() {
+        UserHelper.refreshContacts(/*new DataSource.Callback<List<UserCard>>() {
             @Override
             public void onDataNotAvailable(int strRes) {
 
@@ -71,16 +78,8 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
                 for (UserCard userCard : response) {
                     users.add(userCard.buildUser());
                 }
-
                 //保存到数据库
-                DatabaseDefinition database = FlowManager.getDatabase(AppDatabase.class);
-                database.beginTransactionAsync(new ITransaction() {
-                    @Override
-                    public void execute(DatabaseWrapper databaseWrapper) {
-                        FlowManager.getModelAdapter(User.class).saveAll(users);
-                    }
-                }).build().execute();
-
+                DbHelper.save(User.class, CollectionUtil.toArray(users,User.class));
                 //刷新界面
                 final ContactContract.View view = getView();
                 if (view != null) {
@@ -90,7 +89,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
                 }
 
             }
-        });
+        }*/);
     }
 
 
@@ -100,7 +99,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View>
      * @param newList 新的集合
      */
     private void diff(List<User> oldList,List<User> newList) {
-        UiDiffCallback<User> callback = new UiDiffCallback<>(oldList, newList);
+        DiffUiDataCallback<User> callback = new DiffUiDataCallback<>(oldList, newList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callback);
         diffResult.dispatchUpdatesTo(getView().getRecyclerAdapter());
     }

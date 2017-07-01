@@ -15,8 +15,8 @@ import com.example.commom.widget.EmptyView;
 import com.example.commom.widget.PortraitView;
 import com.example.commom.widget.recycler.RecyclerAdapter;
 import com.example.factory.model.db.User;
-import com.example.factory.presenter.user.ContactContract;
-import com.example.factory.presenter.user.ContactPresenter;
+import com.example.factory.presenter.search.ContactContract;
+import com.example.factory.presenter.search.ContactPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;

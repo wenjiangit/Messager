@@ -19,8 +19,8 @@ import com.example.commom.widget.PortraitView;
 import com.example.commom.widget.recycler.DefaultItemDecoration;
 import com.example.commom.widget.recycler.RecyclerAdapter;
 import com.example.factory.model.card.UserCard;
-import com.example.factory.presenter.follow.FollowContract;
-import com.example.factory.presenter.follow.FollowPresenter;
+import com.example.factory.presenter.contact.FollowContract;
+import com.example.factory.presenter.contact.FollowPresenter;
 import com.example.factory.presenter.search.SearchContract;
 import com.example.factory.presenter.search.UserSearchPresenter;
 

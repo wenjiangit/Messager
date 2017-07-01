@@ -1,4 +1,4 @@
-package com.example.factory.presenter.follow;
+package com.example.factory.presenter.contact;
 
 import com.example.commom.factory.data.DataSource;
 import com.example.commom.factory.presenter.BasePresenter;

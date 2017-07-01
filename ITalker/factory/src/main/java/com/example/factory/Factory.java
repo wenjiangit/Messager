@@ -5,6 +5,12 @@ import android.support.annotation.StringRes;
 
 import com.example.commom.app.Application;
 import com.example.commom.factory.data.DataSource;
+import com.example.factory.data.group.GroupCenter;
+import com.example.factory.data.group.GroupDispatcher;
+import com.example.factory.data.message.MessageCenter;
+import com.example.factory.data.message.MessageDispatcher;
+import com.example.factory.data.user.UserCenter;
+import com.example.factory.data.user.UserDispatcher;
 import com.example.factory.model.api.RspModel;
 import com.example.factory.persistant.Account;
 import com.example.factory.utils.DbflowExclusionStrategy;
@@ -37,7 +43,7 @@ public class Factory {
         executor = Executors.newFixedThreadPool(4);
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")//将date类型转化成对应的字符串格式
-                .setExclusionStrategies(new DbflowExclusionStrategy())//设置dbflow字段的果过滤器
+                .setExclusionStrategies(new DbflowExclusionStrategy())//设置dbflow字段的过滤器
                 .create();
     }
 
@@ -131,6 +137,11 @@ public class Factory {
 
     }
 
+    /**
+     * 处理错误码
+     * @param resId 资源id
+     * @param callback 回调
+     */
     private static void decodeRspCode(@StringRes final int resId, final DataSource.FailedCallback callback) {
         if (callback != null) {
             callback.onDataNotAvailable(resId);
@@ -140,5 +151,31 @@ public class Factory {
     public static void dispatchMessage(String message) {
 
     }
+
+    /**
+     * 获取用户数据调度中心
+     * @return UserDispatcher
+     */
+    public static UserCenter getUserCenter() {
+        return UserDispatcher.instance();
+    }
+
+    /**
+     * 获取消息调度中心
+     * @return MessageDispatcher
+     */
+    public static MessageCenter getMessageCenter() {
+        return MessageDispatcher.instance();
+    }
+
+     /**
+     * 获取群组调度中心
+     * @return MessageDispatcher
+     */
+    public static GroupCenter getGroupCenter() {
+        return GroupDispatcher.instance();
+    }
+
+
 
 }

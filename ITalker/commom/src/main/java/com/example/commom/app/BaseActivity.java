@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化参数
      *
-     * @param bundle
+     * @param bundle 参数集合
      * @return 如果参数处理成功返回true, 否则返回false
      */
     protected boolean initArgs(Bundle bundle) {

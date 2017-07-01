@@ -9,11 +9,11 @@ import java.util.List;
  * Created by wenjian on 2017/6/24.
  */
 
-public class UiDiffCallback<T extends UiDiffCallback.UiDataDiff<T>> extends DiffUtil.Callback {
+public class DiffUiDataCallback<T extends DiffUiDataCallback.UiDataDiffer<T>> extends DiffUtil.Callback {
 
     private List<T> mOldList,mNewList;
 
-    public UiDiffCallback(List<T> oldList, List<T> newList) {
+    public DiffUiDataCallback(List<T> oldList, List<T> newList) {
         mOldList = oldList;
         mNewList = newList;
     }
@@ -43,7 +43,7 @@ public class UiDiffCallback<T extends UiDiffCallback.UiDataDiff<T>> extends Diff
     }
 
 
-    public interface UiDataDiff<T>{
+    public interface UiDataDiffer<T>{
 
         boolean isSame(T t);
 

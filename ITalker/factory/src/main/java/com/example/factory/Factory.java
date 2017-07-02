@@ -1,6 +1,8 @@
 package com.example.factory;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.StringRes;
 
 import com.example.commom.app.Application;
@@ -11,14 +13,25 @@ import com.example.factory.data.message.MessageCenter;
 import com.example.factory.data.message.MessageDispatcher;
 import com.example.factory.data.user.UserCenter;
 import com.example.factory.data.user.UserDispatcher;
+import com.example.factory.model.api.PushModel;
 import com.example.factory.model.api.RspModel;
+import com.example.factory.model.card.GroupCard;
+import com.example.factory.model.card.GroupMemberCard;
+import com.example.factory.model.card.MessageCard;
+import com.example.factory.model.card.UserCard;
+import com.example.factory.model.db.Group;
+import com.example.factory.model.db.GroupMember;
+import com.example.factory.model.db.Message;
 import com.example.factory.persistant.Account;
 import com.example.factory.utils.DbflowExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -54,6 +67,7 @@ public class Factory {
         FlowManager.init(new FlowConfig.Builder(app())
                 .openDatabasesOnInit(true)//在数据库初始化的时候打开
                 .build());
+
     }
 
     public static Application app() {
@@ -133,8 +147,10 @@ public class Factory {
         }
     }
 
-    private void logout() {
-
+    public static void logout() {
+        FlowManager.destroy();
+        SharedPreferences preferences = app().getSharedPreferences(Account.class.getName(), Context.MODE_PRIVATE);
+        preferences.edit().clear().apply();
     }
 
     /**
@@ -148,8 +164,44 @@ public class Factory {
         }
     }
 
-    public static void dispatchMessage(String message) {
+    public static void dispatchMessage(String str) {
+        PushModel model = PushModel.decode(str);
+        if (model == null) return;
 
+        for (PushModel.Entity entity : model.getEntities()) {
+            switch (entity.type) {
+                case PushModel.ENTITY_TYPE_LOGOUT://退出登录
+                    logout();
+                    return;
+                case PushModel.ENTITY_TYPE_MESSAGE://收到消息
+                    MessageCard card = getGson().fromJson(entity.content, MessageCard.class);
+                    getMessageCenter().dispatch(card);
+                    break;
+                case PushModel.ENTITY_TYPE_ADD_GROUP://添加群
+                    GroupCard groupCard = getGson().fromJson(entity.content, GroupCard.class);
+                    getGroupCenter().dispatch(groupCard);
+                    break;
+                case PushModel.ENTITY_TYPE_ADD_FRIEND://添加好友
+                    UserCard userCard = getGson().fromJson(entity.content, UserCard.class);
+                    getUserCenter().dispatch(userCard);
+                case PushModel.ENTITY_TYPE_ADD_GROUP_MEMBERS://添加群成员
+                case PushModel.ENTITY_TYPE_MODIFY_GROUP_MEMBERS://群成员有变更
+                    // 群成员变更, 回来的是一个群成员的列表
+                    Type type = new TypeToken<List<GroupMemberCard>>() {
+                    }.getType();
+                    List<GroupMemberCard> cards = getGson().fromJson(entity.content, type);
+                    // 把数据集合丢到数据中心处理
+                    getGroupCenter().dispatch(cards.toArray(new GroupMemberCard[0]));
+
+                    break;
+
+                case PushModel.ENTITY_TYPE_EXIT_GROUP_MEMBERS:
+                    // TODO: 2017/7/2 退出通知
+
+                    break;
+
+            }
+        }
     }
 
     /**

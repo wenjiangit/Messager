@@ -1,5 +1,6 @@
 package com.example.factory.model.db;
 
+import com.example.factory.base.BaseDbModel;
 import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
-public class Group extends BaseModel implements Serializable, DiffUiDataCallback.UiDataDiffer<Group> {
+public class Group extends BaseDbModel<Group> implements Serializable{
     @PrimaryKey
     private String id; // 群Id
     @Column

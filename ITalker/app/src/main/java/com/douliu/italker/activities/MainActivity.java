@@ -26,6 +26,7 @@ import com.douliu.italker.frags.mian.GroupFragment;
 import com.example.commom.app.BaseActivity;
 import com.example.commom.helper.NavHelper;
 import com.example.commom.widget.PortraitView;
+import com.example.factory.Factory;
 import com.example.factory.persistant.Account;
 
 import net.qiujuer.genius.ui.Ui;
@@ -121,6 +122,7 @@ public class MainActivity extends BaseActivity implements
                 break;
             case R.id.btn_action:
                 AccountActivity.show(this);
+                Factory.logout();
                 break;
             case R.id.im_portrait:
                 PersonalActivity.show(this,Account.getUserId());

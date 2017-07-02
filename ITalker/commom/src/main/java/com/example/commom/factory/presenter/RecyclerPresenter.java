@@ -14,7 +14,7 @@ import java.util.List;
  * Created by douliu on 2017/6/29.
  */
 
-public class RecyclerPresenter<Model,View extends BaseContract.RecyclerView> extends BasePresenter<View>{
+public class  RecyclerPresenter<Model,View extends BaseContract.RecyclerView> extends BasePresenter<View>{
     public RecyclerPresenter(View view) {
         super(view);
     }
@@ -55,7 +55,7 @@ public class RecyclerPresenter<Model,View extends BaseContract.RecyclerView> ext
     private void refreshDataOnUiThread(DiffUtil.DiffResult diffResult, List<Model> dataList) {
         View view = getView();
         if (view == null) return;
-        RecyclerAdapter adapter = view.getRecyclerAdapter();
+        RecyclerAdapter<Model> adapter = view.getRecyclerAdapter();
 
         //清除原始数据
         adapter.getItems().clear();

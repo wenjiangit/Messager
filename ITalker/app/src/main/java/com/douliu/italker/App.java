@@ -1,5 +1,8 @@
 package com.douliu.italker;
 
+import android.app.Activity;
+import android.os.Bundle;
+
 import com.douliu.italker.services.MessageService;
 import com.douliu.italker.services.PushService;
 import com.example.commom.app.Application;

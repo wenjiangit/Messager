@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
+    protected final String TAG = this.getClass().getSimpleName();
 
     protected View mRootView;
     protected Unbinder mUnbinder;
@@ -27,12 +29,13 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.i(TAG, "onAttach: ");
         initArgs(getArguments());
     }
 
     /**
      * 初始化参数信息
-     * @param arguments
+     * @param arguments 参数信息
      */
     protected void initArgs(Bundle arguments) {
 
@@ -42,6 +45,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         int layoutId = getContentLayoutId();
         if (mRootView == null) {
             mRootView = inflater.inflate(layoutId, container, false);
@@ -57,6 +61,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onViewCreated: ");
         if (mIsFirstInitData) {
             mIsFirstInitData = false;
             onFirstInit();
@@ -70,7 +75,7 @@ public abstract class BaseFragment extends Fragment {
      * 当第一次加载数据时触发
      */
     protected void onFirstInit() {
-
+        Log.i(TAG, "onFirstInit: ");
     }
 
     /**
@@ -102,4 +107,9 @@ public abstract class BaseFragment extends Fragment {
         return false;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i(TAG, "onDetach: ");
+    }
 }

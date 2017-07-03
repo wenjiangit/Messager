@@ -162,4 +162,9 @@ public class MainActivity extends BaseActivity implements
 
 
     }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+    }
 }

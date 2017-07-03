@@ -14,8 +14,8 @@ import java.util.List;
  * Created by douliu on 2017/6/29.
  */
 
-public class  RecyclerPresenter<Model,View extends BaseContract.RecyclerView> extends BasePresenter<View>{
-    public RecyclerPresenter(View view) {
+public class BaseRecyclerPresenter<Model,View extends BaseContract.RecyclerView> extends BasePresenter<View>{
+    public BaseRecyclerPresenter(View view) {
         super(view);
     }
 

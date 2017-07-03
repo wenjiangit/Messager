@@ -1,9 +1,7 @@
-package com.example.factory.base;
+package com.example.commom.factory.presenter;
 
 import com.example.commom.factory.data.DataSource;
 import com.example.commom.factory.data.DbDataSource;
-import com.example.commom.factory.presenter.BaseContract;
-import com.example.commom.factory.presenter.RecyclerPresenter;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  */
 
 public class BaseSourcePresenter<Data, Model, View extends BaseContract.RecyclerView>
-        extends RecyclerPresenter<Model, View> implements DataSource.SucceedCallback<List<Data>> {
+        extends BaseRecyclerPresenter<Model, View> implements DataSource.SucceedCallback<List<Data>> {
 
     private DbDataSource<Data> mSource;
 

@@ -1,4 +1,4 @@
-package com.example.factory.base;
+package com.example.factory.model.db;
 
 import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.structure.BaseModel;

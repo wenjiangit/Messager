@@ -131,29 +131,6 @@ public class DbHelper {
         }).build().execute();
     }
 
-    /**
-     * 通用的数据库更新操作
-     *
-     * @param clazz   数据的类型,操作的表名
-     * @param models  需要保存的数据数组
-     * @param <Model> 数据模型
-     */
-    @SuppressWarnings("unchecked")
-    public static <Model extends BaseModel> void update(final Class<Model> clazz, final Model... models) {
-        if (models == null || models.length == 0) {
-            return;
-        }
-        //保存到数据库
-        DatabaseDefinition database = FlowManager.getDatabase(AppDatabase.class);
-        database.beginTransactionAsync(new ITransaction() {
-            @Override
-            public void execute(DatabaseWrapper databaseWrapper) {
-                FlowManager.getModelAdapter(clazz)
-                        .updateAll(Arrays.asList(models));
-                instance.notifyUpdate(clazz, models);
-            }
-        }).build().execute();
-    }
 
     /**
      * 通知数据有保存
@@ -278,19 +255,6 @@ public class DbHelper {
             updateSession((Message[]) models);
         }
 
-    }
-
-    /**
-     * 通知数据有更新
-     *
-     * @param clazz   数据的类型,操作的表名
-     * @param models  需要保存的数据数组
-     * @param <Model> 数据模型
-     */
-    @SuppressWarnings("unchecked")
-    private <Model extends BaseModel> void notifyUpdate(final Class<Model> clazz, final Model... models) {
-
-        // TODO: 2017/6/27 具体的通知操作
     }
 
     @SuppressWarnings("unchecked")

@@ -44,6 +44,11 @@ public class AccountActivity extends BaseActivity implements AccountTrigger {
     }
 
     @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
     protected void initWidget() {
         super.initWidget();
         mCurFragment = mLoginFragment = new LoginFragment();

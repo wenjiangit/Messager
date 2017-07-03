@@ -1,11 +1,10 @@
 package com.example.factory.model.db;
 
 import com.example.commom.factory.model.Author;
-import com.example.factory.utils.DiffUiDataCallback;
+import com.example.factory.base.BaseDbModel;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
 import java.util.Objects;
@@ -16,7 +15,7 @@ import java.util.Objects;
  */
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements Author,DiffUiDataCallback.UiDataDiffer<User> {
+public class User extends BaseDbModel<User> implements Author {
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
 
@@ -139,6 +138,32 @@ public class User extends BaseModel implements Author,DiffUiDataCallback.UiDataD
 
     public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (sex != user.sex) return false;
+        if (follows != user.follows) return false;
+        if (following != user.following) return false;
+        if (isFollow != user.isFollow) return false;
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
+        if (portrait != null ? !portrait.equals(user.portrait) : user.portrait != null)
+            return false;
+        if (desc != null ? !desc.equals(user.desc) : user.desc != null) return false;
+        if (alias != null ? !alias.equals(user.alias) : user.alias != null) return false;
+        return modifyAt != null ? modifyAt.equals(user.modifyAt) : user.modifyAt == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

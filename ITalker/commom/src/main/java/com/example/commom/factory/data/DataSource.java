@@ -37,4 +37,6 @@ public interface DataSource {
         void onDataNotAvailable(@StringRes int strRes);
     }
 
+    void dispose();
+
 }

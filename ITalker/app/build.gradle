@@ -29,6 +29,10 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
 }
 
 

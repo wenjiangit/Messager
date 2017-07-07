@@ -3,7 +3,9 @@ package com.example.factory;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.support.annotation.StringRes;
+import android.util.Log;
 
 import com.example.commom.app.Application;
 import com.example.commom.factory.data.DataSource;
@@ -41,6 +43,8 @@ import java.util.concurrent.Executors;
 
 public class Factory {
 
+    private static final String TAG = "Factory";
+
 
     private final Executor executor;
 
@@ -74,7 +78,7 @@ public class Factory {
         return Application.getInstance();
     }
 
-    public static void runOnUiAsync(Runnable runnable) {
+    public static void runOnBackground(Runnable runnable) {
         instance.executor.execute(runnable);
     }
 
@@ -167,6 +171,10 @@ public class Factory {
     public static void dispatchMessage(String str) {
         PushModel model = PushModel.decode(str);
         if (model == null) return;
+
+        for (PushModel.Entity entity : model.getEntities()) {
+            Log.i(TAG, "dispatchMessage: " + entity);
+        }
 
         for (PushModel.Entity entity : model.getEntities()) {
             switch (entity.type) {

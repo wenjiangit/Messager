@@ -1,5 +1,6 @@
 package net.qiujuer.web.italker.push.bean.db;
 
+import net.qiujuer.web.italker.push.bean.api.message.MessageCreateModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,12 +10,15 @@ import java.time.LocalDateTime;
 
 /**
  * 消息model
- *
+ * <p>
  * Created by wenjian on 2017/6/10.
  */
 @Entity
 @Table(name = "TB_MESSAGE")
 public class Message {
+
+    public static final int TYPE_RECEIVER_NONE = 1;//接收者为人
+    public static final int TYPE_RECEIVER_GROUP = 2;//群
 
     public static final int TYPE_STR = 1;//文本消息
     public static final int TYPE_PIC = 2;//图片
@@ -75,6 +79,28 @@ public class Message {
     //群id
     @Column(updatable = false, insertable = false)
     private String groupId;
+
+    public Message() {
+    }
+
+    public Message(User sender, User receiver, MessageCreateModel model) {
+        this.attach = model.getAttach();
+        this.content = model.getContent();
+        this.id = model.getId();
+        this.type = model.getType();
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
+    public Message(User sender, Group receiver, MessageCreateModel model) {
+        this.attach = model.getAttach();
+        this.content = model.getContent();
+        this.id = model.getId();
+        this.type = model.getType();
+        this.sender = sender;
+        this.group = receiver;
+    }
+
 
     public String getId() {
         return id;

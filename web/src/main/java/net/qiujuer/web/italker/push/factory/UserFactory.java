@@ -1,12 +1,10 @@
 package net.qiujuer.web.italker.push.factory;
 
 import com.google.common.base.Strings;
-import net.qiujuer.web.italker.push.bean.api.account.UserCard;
 import net.qiujuer.web.italker.push.bean.db.User;
 import net.qiujuer.web.italker.push.bean.db.UserFollow;
 import net.qiujuer.web.italker.push.utils.Hib;
 import net.qiujuer.web.italker.push.utils.TextUtil;
-import org.hibernate.Session;
 
 import java.util.List;
 import java.util.Set;

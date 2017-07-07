@@ -1,18 +1,15 @@
 package net.qiujuer.web.italker.push.service;
 
 import com.google.common.base.Strings;
-import net.qiujuer.web.italker.push.bean.api.account.UserCard;
 import net.qiujuer.web.italker.push.bean.api.base.ResponseModel;
+import net.qiujuer.web.italker.push.bean.api.card.UserCard;
 import net.qiujuer.web.italker.push.bean.api.user.UpdateInfoModel;
 import net.qiujuer.web.italker.push.bean.db.User;
-import net.qiujuer.web.italker.push.bean.db.UserFollow;
 import net.qiujuer.web.italker.push.factory.UserFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -43,6 +40,11 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)//指定请求的数据类型
     public ResponseModel<List<UserCard>> contact() {
         User self = getSelf();
+
+       /* PushDispatcher dispatcher = new PushDispatcher();
+        dispatcher.add(self, new PushModel().add(0, "hello!!!"));
+        dispatcher.submit();*/
+
         List<User> contacts = UserFactory.contacts(self);
         List<UserCard> userCards = contacts.stream()
                 .map(user -> new UserCard(user,true))

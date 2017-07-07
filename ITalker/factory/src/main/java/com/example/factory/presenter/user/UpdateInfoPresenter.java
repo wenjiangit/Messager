@@ -38,7 +38,7 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
             return;
         }
 
-        Factory.runOnUiAsync(new Runnable() {
+        Factory.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 //上传头像

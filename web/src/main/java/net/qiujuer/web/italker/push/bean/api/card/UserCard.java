@@ -1,4 +1,4 @@
-package net.qiujuer.web.italker.push.bean.api.account;
+package net.qiujuer.web.italker.push.bean.api.card;
 
 import com.google.gson.annotations.Expose;
 import net.qiujuer.web.italker.push.bean.db.User;
@@ -6,54 +6,58 @@ import net.qiujuer.web.italker.push.bean.db.User;
 import java.time.LocalDateTime;
 
 /**
- * Created by wenjian on 2017/6/10.
+ * @author qiujuer Email:qiujuer@live.cn
+ * @version 1.0.0
  */
 public class UserCard {
-
     @Expose
     private String id;
-
     @Expose
     private String name;
-
     @Expose
     private String phone;
-
     @Expose
     private String portrait;
-
     @Expose
     private String desc;
-
     @Expose
     private int sex = 0;
 
+    // 用户关注人的数量
     @Expose
-    private int followers;//粉丝的个数
+    private int follows;
 
+    // 用户粉丝的数量
     @Expose
-    private int followings;//我关注的人个数
+    private int following;
 
+    // 我与当前User的关系状态，是否已经关注了这个人
     @Expose
     private boolean isFollow;
 
+    // 用户信息最后的更新时间
     @Expose
     private LocalDateTime modifyAt;
 
-    public UserCard(User user) {
+    public UserCard(final User user) {
         this(user, false);
-
     }
 
-    public UserCard(User user, boolean isFollow) {
+    public UserCard(final User user, boolean isFollow) {
         this.isFollow = isFollow;
+
         this.id = user.getId();
         this.name = user.getName();
-        this.portrait = user.getPortrait();
         this.phone = user.getPhone();
-        this.sex = user.getSex();
+        this.portrait = user.getPortrait();
         this.desc = user.getDescription();
-        // TODO: 2017/6/11 添加关注的数量和被关注人的数量
+        this.sex = user.getSex();
+        this.modifyAt = user.getUpdateAt();
+
+        // TODO 得到关注人和粉丝的数量
+        // user.getFollowers().size()
+        // 懒加载会报错，因为没有Session
+
     }
 
 
@@ -105,20 +109,20 @@ public class UserCard {
         this.sex = sex;
     }
 
-    public int getFollowers() {
-        return followers;
+    public int getFollows() {
+        return follows;
     }
 
-    public void setFollowers(int followers) {
-        this.followers = followers;
+    public void setFollows(int follows) {
+        this.follows = follows;
     }
 
-    public int getFollowings() {
-        return followings;
+    public int getFollowing() {
+        return following;
     }
 
-    public void setFollowings(int followings) {
-        this.followings = followings;
+    public void setFollowing(int following) {
+        this.following = following;
     }
 
     public boolean isFollow() {

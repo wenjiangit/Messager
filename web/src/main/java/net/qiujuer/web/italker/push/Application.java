@@ -8,6 +8,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.util.logging.Logger;
 
 /**
+ *
  * Created by wenjian on 2017/6/1.
  */
 public class Application extends ResourceConfig {

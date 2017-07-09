@@ -136,12 +136,12 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         mTxtFollowing.setText(String.format(getString(R.string.label_following), user.getFollowing()));
         mTxtFollows.setText(String.format(getString(R.string.label_follows), user.getFollows()));
 
-        Glide.with(this)
+       /* Glide.with(this)
                 .load(user.getPortrait())
                 .apply(RequestOptions.fitCenterTransform())
                 .apply(RequestOptions.placeholderOf(R.drawable.default_portrait))
                 .apply(RequestOptions.noAnimation())
-                .into(mImHeader);
+                .into(mImHeader);*/
     }
 
     @Override

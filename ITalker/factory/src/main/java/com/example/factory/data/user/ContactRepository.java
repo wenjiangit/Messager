@@ -1,8 +1,13 @@
 package com.example.factory.data.user;
 
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
 
 import com.example.commom.factory.data.DataSource;
+=======
+import com.example.commom.factory.data.DataSource;
+import com.example.factory.data.BaseDbRepository;
+>>>>>>> 061ebe67123380ee818342722b8b262a9d208043
 import com.example.factory.data.helper.DbHelper;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
@@ -10,7 +15,10 @@ import com.example.factory.persistant.Account;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 061ebe67123380ee818342722b8b262a9d208043
 import java.util.List;
 
 /**
@@ -18,6 +26,7 @@ import java.util.List;
  * Created by wenjian on 2017/7/2.
  */
 
+<<<<<<< HEAD
 public class ContactRepository implements ContactDataSource,
         QueryTransaction.QueryResultListCallback<User>,
         DbHelper.ChangeListener<User>{
@@ -33,6 +42,15 @@ public class ContactRepository implements ContactDataSource,
     @Override
     public void load(DataSource.SucceedCallback<List<User>> callback) {
         this.mCallback = callback;
+=======
+public class ContactRepository extends BaseDbRepository<User> implements
+        ContactDataSource,
+        QueryTransaction.QueryResultListCallback<User>,
+        DbHelper.ChangeListener<User>{
+    @Override
+    public void load(DataSource.SucceedCallback<List<User>> callback) {
+        super.load(callback);
+>>>>>>> 061ebe67123380ee818342722b8b262a9d208043
         //查询本地数据库我的联系人列表
         SQLite.select()
                 .from(User.class)
@@ -46,6 +64,7 @@ public class ContactRepository implements ContactDataSource,
     }
 
     @Override
+<<<<<<< HEAD
     public void dispose() {
         this.mCallback = null;
         DbHelper.removeChangeListener(User.class, this);
@@ -136,4 +155,11 @@ public class ContactRepository implements ContactDataSource,
     private boolean isRequired(User user) {
         return user.isFollow() && !user.getId().equalsIgnoreCase(Account.getUserId());
     }
+=======
+    protected boolean isRequired(User user) {
+        return user.isFollow() && !user.getId().equalsIgnoreCase(Account.getUserId());
+    }
+
+
+>>>>>>> 061ebe67123380ee818342722b8b262a9d208043
 }

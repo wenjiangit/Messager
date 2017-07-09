@@ -1,6 +1,7 @@
 package net.qiujuer.web.italker.push.bean.api.account;
 
 import com.google.gson.annotations.Expose;
+import net.qiujuer.web.italker.push.bean.api.card.UserCard;
 import net.qiujuer.web.italker.push.bean.db.User;
 
 /**

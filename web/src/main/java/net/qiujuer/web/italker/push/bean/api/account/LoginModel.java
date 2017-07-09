@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
 
 /**
+ * 登录的数据
  * Created by wenjian on 2017/6/11.
  */
 public class LoginModel {

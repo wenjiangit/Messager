@@ -1,60 +1,116 @@
 package net.qiujuer.web.italker.push.utils;
 
 import com.gexin.rp.sdk.base.IPushResult;
-import com.gexin.rp.sdk.base.impl.AppMessage;
+import com.gexin.rp.sdk.base.impl.SingleMessage;
+import com.gexin.rp.sdk.base.impl.Target;
+import com.gexin.rp.sdk.exceptions.RequestException;
 import com.gexin.rp.sdk.http.IGtPush;
-import com.gexin.rp.sdk.template.LinkTemplate;
+import com.gexin.rp.sdk.template.TransmissionTemplate;
+import com.google.common.base.Strings;
+import net.qiujuer.web.italker.push.bean.api.base.PushModel;
 import net.qiujuer.web.italker.push.bean.db.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
- * Created by wenjian on 2017/7/3.
+ *
+ * Created by douliu on 2017/7/4.
  */
 public class PushDispatcher {
-    //定义常量, appId、appKey、masterSecret 采用本文档 "第二步 获取访问凭证 "中获得的应用配置
+
+    private static final String TAG = "PushDispatcher";
+
+    //采用"Java SDK 快速入门"， "第二步 获取访问凭证 "中获得的应用配置，用户可以自行替换
     private static final String appId = "aItu6HBrIB8cvhmrJeRBA3";
     private static final String appKey = "jeEqIGB5QC8CFIsx5F4nw3";
     private static final String masterSecret = "je2tDzJUsG6dteJCxdnJh";
-    private static final String url = "http://sdk.open.api.igexin.com/apiex.htm";
+
+    //别名推送方式
+    // static String Alias = "";
+    private static final String host = "http://sdk.open.api.igexin.com/apiex.htm";
+
+    private final List<PushBean> mPushBeans = new ArrayList<>();
 
     private final IGtPush mPusher;
 
     public PushDispatcher() {
-        mPusher = new IGtPush(url, appKey, masterSecret);
+        mPusher = new IGtPush(host, appKey, masterSecret);
     }
 
-    public void main(String[] args) throws IOException {
+    /**
+     * 添加一条消息
+     * @param receiver 接受者
+     * @param model 推送的内容
+     */
+    public void add(User receiver, PushModel model) {
+        if (receiver == null || Strings.isNullOrEmpty(receiver.getPushId())
+                || model == null) {
+            return;
+        }
 
-        // 定义"点击链接打开通知模板"，并设置标题、内容、链接
-        LinkTemplate template = new LinkTemplate();
+        String pushString = model.getPushString();
+        if (Strings.isNullOrEmpty(pushString)) {
+            return;
+        }
+
+        SingleMessage message = buildMessage(pushString);
+        Target target = new Target();
+        target.setAppId(appId);
+        target.setClientId(receiver.getPushId());
+        mPushBeans.add(new PushBean(message, target));
+    }
+
+    /**
+     * 提交,调用个推sdk发送消息
+     */
+    public void submit() {
+        if (mPushBeans.size() == 0) {
+            return;
+        }
+
+        for (PushBean pushBean : mPushBeans) {
+            IPushResult ret;
+            try {
+                ret = mPusher.pushMessageToSingle(pushBean.message, pushBean.target);
+            } catch (RequestException e) {
+                e.printStackTrace();
+                ret = mPusher.pushMessageToSingle(pushBean.message, pushBean.target, e.getRequestId());
+            }
+            if (ret != null) {
+                Logger.getLogger(TAG).info(ret.getResponse().toString());
+            } else {
+                Logger.getLogger(TAG).info("服务器响应异常");
+            }
+        }
+    }
+
+
+    private SingleMessage buildMessage(String pushString) {
+        TransmissionTemplate template = new TransmissionTemplate();
+        template.setTransmissionContent(pushString);
         template.setAppId(appId);
         template.setAppkey(appKey);
-        template.setTitle("欢迎使用个推!");
-        template.setText("这是一条推送消息~");
-        template.setUrl("http://getui.com");
-
-        List<String> appIds = new ArrayList<String>();
-        appIds.add(appId);
-
-        // 定义"AppMessage"类型消息对象，设置消息内容模板、发送的目标App列表、是否支持离线发送、以及离线消息有效期(单位毫秒)
-        AppMessage message = new AppMessage();
-        message.setData(template);
-        message.setAppIdList(appIds);
+        SingleMessage message = new SingleMessage();
         message.setOffline(true);
-        message.setOfflineExpireTime(1000 * 600);
-
-        IPushResult ret = mPusher.pushMessageToApp(message);
-        System.out.println(ret.getResponse().toString());
+        // 离线有效时间，单位为毫秒，可选
+        message.setOfflineExpireTime(24 * 3600 * 1000);
+        message.setData(template);
+        // 可选，1为wifi，0为不限制网络环境。根据手机处于的网络情况，决定是否下发
+        message.setPushNetWorkType(0);
+        return message;
     }
 
 
-    private void add(User receiver) {
+    public static class PushBean{
+        SingleMessage message;
+        Target target;
 
+        PushBean(SingleMessage message, Target target) {
+            this.message = message;
+            this.target = target;
+        }
     }
-
-
 
 }

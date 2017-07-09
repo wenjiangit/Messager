@@ -32,6 +32,10 @@ public class Apply {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String content;
 
+    // 附件
+    @Column
+    private String attach;
+
     // 申请类型
     @Column(nullable = false)
     private int type;
@@ -131,5 +135,13 @@ public class Apply {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public String getAttach() {
+        return attach;
+    }
+
+    public void setAttach(String attach) {
+        this.attach = attach;
     }
 }

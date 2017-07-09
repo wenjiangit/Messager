@@ -97,9 +97,7 @@ public class UserHelper {
                     UserCard userCard = rspModel.getResult();
                     //将数据分发给UserCenter进行处理
                     Factory.getUserCenter().dispatch(userCard);
-                    // TODO: 2017/6/23 通知联系人列表更新
                     callback.onDataLoaded(userCard);
-
                 } else {
                     Factory.decodeRspCode(rspModel, callback);
                 }
@@ -125,7 +123,6 @@ public class UserHelper {
                 if (rspModel.success()) {
                     List<UserCard> userCards = rspModel.getResult();
                     Factory.getUserCenter().dispatch(CollectionUtil.toArray(userCards,UserCard.class));
-
                 } else {
                     Factory.decodeRspCode(rspModel, null);
                 }

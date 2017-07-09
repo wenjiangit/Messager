@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import net.qiujuer.web.italker.push.bean.api.account.AccountRspModel;
 import net.qiujuer.web.italker.push.bean.api.account.LoginModel;
 import net.qiujuer.web.italker.push.bean.api.account.RegisterModel;
-import net.qiujuer.web.italker.push.bean.api.account.UserCard;
 import net.qiujuer.web.italker.push.bean.api.base.ResponseModel;
 import net.qiujuer.web.italker.push.bean.db.User;
 import net.qiujuer.web.italker.push.factory.UserFactory;

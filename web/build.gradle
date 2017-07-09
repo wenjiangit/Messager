@@ -8,10 +8,16 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+<<<<<<< HEAD
     maven { // this is for realm-db
         url 'http://mvn.gt.igexin.com/nexus/content/repositories/releases/'
     }
 
+=======
+    maven{
+        url 'http://mvn.gt.igexin.com/nexus/content/repositories/releases/'
+    }
+>>>>>>> e3046118bfeb4b5813bda6ef09177030cbbe5151
 }
 
 dependencies {

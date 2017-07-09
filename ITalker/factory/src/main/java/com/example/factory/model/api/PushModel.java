@@ -52,7 +52,7 @@ public class PushModel {
      * 并把数组封装到PushModel中，方便后面的数据流处理
      *
      * @param json Json数据
-     * @return
+     * @return PushModel
      */
     public static PushModel decode(String json) {
         Gson gson = Factory.getGson();
@@ -80,12 +80,17 @@ public class PushModel {
         public String content;
         // 消息生成时间
         public Date createAt;
+
+
+        @Override
+        public String toString() {
+            return "Entity{" +
+                    "type=" + type +
+                    ", content='" + content + '\'' +
+                    ", createAt=" + createAt +
+                    '}';
+        }
     }
 
-    @Override
-    public String toString() {
-        return "PushModel{" +
-                "entities=" + entities +
-                '}';
-    }
+
 }

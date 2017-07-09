@@ -10,7 +10,6 @@ import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
 
 /**
- *
  * Created by wenjian on 2017/6/24.
  */
 
@@ -26,20 +25,17 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
     @Override
     public void start() {
         super.start();
-        Factory.runOnUiAsync(new Runnable() {
+        Factory.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 final PersonalContract.View view = getView();
-                if (view != null) {
-                    User user = UserHelper.searchFirstNet(view.getUserId());
-                    onDataLoad(view, user);
-                }
+                User user = UserHelper.searchFirstNet(view.getUserId());
+                onDataLoad(user);
             }
         });
-
     }
 
-    private void onDataLoad(final PersonalContract.View view, final User user) {
+    private void onDataLoad(final User user) {
         this.mUser = user;
         boolean isSelf = user.getId().equalsIgnoreCase(Account.getUserId());
         final boolean allow = !isSelf && user.isFollow();
@@ -47,6 +43,8 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
+                PersonalContract.View view = getView();
+                if (view == null) return;
                 view.onLoadDone(user);
                 view.allowSayHello(allow);
                 view.setFollowState(follow);

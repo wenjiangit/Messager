@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.douliu.italker.R;
 import com.example.commom.app.PresenterToolbarActivity;
 import com.example.commom.widget.PortraitView;

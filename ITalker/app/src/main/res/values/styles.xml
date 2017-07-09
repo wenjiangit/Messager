@@ -19,6 +19,9 @@
     </style>
 
     <style name="AppTheme.TransStatusBar" parent="AppTheme.TransStatusBar.Base" />
+    <style name="AppTheme.Message" parent="AppTheme.TransStatusBar.Base">
+        <item name="android:windowBackground">@color/trans</item>
+    </style>
 
     <style name="AppTheme.Main" parent="AppTheme.TransStatusBar">
         <item name="toolbarTitleColor">@color/white</item>

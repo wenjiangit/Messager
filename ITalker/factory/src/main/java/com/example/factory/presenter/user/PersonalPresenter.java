@@ -10,6 +10,7 @@ import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
 
 /**
+ * 个人中心页
  * Created by wenjian on 2017/6/24.
  */
 

@@ -93,8 +93,8 @@ public class AccountService extends BaseService{
 
     /**
      * 将User和pushId进行绑定
-     * @param pushId
-     * @param user
+     * @param pushId 设备id
+     * @param user 绑定用户
      * @return ResponseModel
      */
     private ResponseModel<AccountRspModel> bind(String pushId, User user) {

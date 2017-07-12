@@ -134,4 +134,12 @@ public class PushFactory {
             dispatcher.add(receiver, model);
         }
     }
+
+    /**
+     * 推送一条被添加到群的消息
+     * @param groupMembers 群成员
+     */
+    public static void pushJoinGroup(Set<GroupMember> groupMembers) {
+
+    }
 }

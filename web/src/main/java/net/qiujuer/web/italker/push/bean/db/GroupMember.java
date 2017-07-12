@@ -69,6 +69,22 @@ public class GroupMember {
     @Column(nullable = false,updatable = false,insertable = false)
     private String groupId;
 
+    public GroupMember(User user, Group group, boolean isOwner) {
+        this.user = user;
+        this.group = group;
+        if (isOwner) {
+            this.notifyLevel = NOTIFY_LEVEL_NONE;
+            this.permissionType = PERMISSION_TYPE_ADMIN_SUP;
+        }
+    }
+
+    public GroupMember() {
+    }
+
+    public GroupMember(User user, Group group) {
+        this(user, group, false);
+    }
+
     public String getId() {
         return id;
     }

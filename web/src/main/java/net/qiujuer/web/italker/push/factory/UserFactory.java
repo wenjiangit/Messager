@@ -77,10 +77,10 @@ public class UserFactory {
 
     /**
      * 用户注册
-     * @param account
-     * @param name
-     * @param password
-     * @return
+     * @param account 账户
+     * @param name 名称
+     * @param password 密码
+     * @return User
      */
     public static User register(String account, String name, String password) {
         account = account.trim();
@@ -93,9 +93,9 @@ public class UserFactory {
     /**
      * 登录
      *
-     * @param account
-     * @param password
-     * @return
+     * @param account 账户即手机号
+     * @param password 密码
+     * @return User
      */
     public static User login(String account, String password) {
         final String accountStr = account.trim();
@@ -116,8 +116,8 @@ public class UserFactory {
      * 用户登录
      * 本质上是对token进行操作
      *
-     * @param user
-     * @return
+     * @param user User
+     * @return User
      */
     public static User login(User user) {
         //使用UUID生成一个随机的字符串
@@ -131,9 +131,9 @@ public class UserFactory {
 
     /**
      * 绑定PushId
-     * @param pushId
-     * @param user
-     * @return
+     * @param pushId 设备id
+     * @param user User
+     * @return User
      */
     public static User bindPushId(String pushId, User user) {
         Hib.queryOnly(session -> {
@@ -203,6 +203,13 @@ public class UserFactory {
     }
 
 
+    /**
+     * 关注
+     * @param origin 发起人
+     * @param target 要求关注的人
+     * @param alias 别名
+     * @return 被关注后的用户
+     */
     public static User follow(User origin,User target,String alias) {
         UserFollow userFollow = getUserFollow(origin, target);
         if (userFollow != null) {
@@ -252,8 +259,8 @@ public class UserFactory {
 
     /**
      * 根据名字进行模糊查询
-     * @param name
-     * @return
+     * @param name 用户名
+     * @return 用户列表
      */
     @SuppressWarnings("unchecked")
     public static List<User> search(String name) {

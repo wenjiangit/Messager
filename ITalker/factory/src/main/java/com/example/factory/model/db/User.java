@@ -1,10 +1,7 @@
 package com.example.factory.model.db;
 
 import com.example.commom.factory.model.Author;
-<<<<<<< HEAD
 import com.example.factory.base.BaseDbModel;
-=======
->>>>>>> 061ebe67123380ee818342722b8b262a9d208043
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;

@@ -32,11 +32,8 @@ dependencies {
     compile "com.android.support:design:$rootProject.ext.supportVersion"
     compile "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
     compile "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
-<<<<<<< HEAD
-//    compile "net.qiujuer.genius:kit-reflect:$rootProject.ext.geniusVersion"
-=======
+
     compile "net.qiujuer.genius:kit-reflect:$rootProject.ext.geniusVersion"
->>>>>>> 061ebe67123380ee818342722b8b262a9d208043
 
     //图片加载库
     compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"

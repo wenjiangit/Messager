@@ -17,7 +17,7 @@ public class MessageFactory {
      * 查找消息
      *
      * @param id 消息id
-     * @return
+     * @return 一条消息
      */
     public static Message findById(String id) {
         return Hib.query(session -> session.get(Message.class, id));
